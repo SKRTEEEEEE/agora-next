@@ -1,13 +1,43 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests',          // Carpeta donde están tus tests
-  testMatch: '*.spec.ts',      // Patrón de archivos
-  timeout: 30000,              // Timeout por test
-  retries: 2,                  // Reintentos si falla
+  testDir: './tests',
+  testMatch: '**/*.spec.ts',
+  timeout: 30000,
+  retries: 2,
   outputDir: "docs/test-results",
+  
+  // Different test projects for different types of tests
+  projects: [
+    {
+      name: 'unit',
+      testMatch: '**/unit/**/*.spec.ts',
+      use: {
+        headless: true,
+      },
+    },
+    {
+      name: 'integration',
+      testMatch: '**/integration/**/*.spec.ts',
+      use: {
+        headless: true,
+        viewport: { width: 1280, height: 720 },
+        ignoreHTTPSErrors: true,
+      },
+    },
+    {
+      name: 'e2e',
+      testMatch: '**/e2e/**/*.spec.ts',
+      use: {
+        headless: true,
+        viewport: { width: 1280, height: 720 },
+        ignoreHTTPSErrors: true,
+      },
+    },
+  ],
+  
   use: {
-    headless: true,            // Ejecutar en headless
+    headless: true,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
   },

@@ -1,7 +1,13 @@
+#!/bin/sh
+
+# Run linting
+echo "Running lint..."
 npm run lint
-npm run build
-npm run start &
-SERVER_PID=$!
-sleep 5
-nyc playwright test
-kill $SERVER_PID
+
+# Run type checking
+echo "Running type check..."
+npm run type-check
+
+# Run unit tests (no server required) with coverage check
+echo "Running unit tests with coverage..."
+npm run test:unit:coverage
