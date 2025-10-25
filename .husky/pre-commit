@@ -1,13 +1,12 @@
 #!/bin/sh
 
-# Run linting
-echo "Running lint..."
+echo "🔍 Running linting..."
 npm run lint
 
-# Run type checking
-echo "Running type check..."
-npm run type-check
+echo "🧪 Running type tests (no server required)..."
+npx tsc --noEmit
 
-# Run unit tests (no server required) with coverage check
-echo "Running unit tests with coverage..."
-npm run test:unit:coverage
+echo "📊 Checking test coverage (minimum 80%)..."
+npm run test:coverage:unit
+
+echo "✅ All pre-commit checks passed!"
