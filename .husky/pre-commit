@@ -1,0 +1,7 @@
+npm run lint
+npm run build
+npm run start &
+SERVER_PID=$!
+sleep 5
+nyc playwright test
+kill $SERVER_PID

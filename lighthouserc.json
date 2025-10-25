@@ -1,0 +1,20 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:3000/"
+      ],
+      "numberOfRuns": 1,
+      "startServerCommand": "npm run build && npm run start",
+      "startServerReadyPattern": "ready on.*3000",
+      "chromeFlags": "--headless"
+    },
+    "assert": {
+      "preset": "lighthouse:recommended"
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "./docs/lighthouse-reports"
+    }
+  }
+}

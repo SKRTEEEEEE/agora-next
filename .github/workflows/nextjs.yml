@@ -1,0 +1,41 @@
+name: '🐢 Next.js'
+
+on:
+  push:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛬
+        uses: actions/checkout@v5
+        with:
+          submodules: true
+
+      - name: Cache node_modules 🧠
+        id: cache-node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Setup Node ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.5
+
+      - name: Install dependencies 📩
+        if: steps.cache-node_modules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Build Next.js 📦
+        run: npm run build
+
+      - name: Lint code 💅
+        run: npm run lint
+
+      - name: Cache Next.js build ⚡
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-next-${{ hashFiles('package-lock.json') }}
