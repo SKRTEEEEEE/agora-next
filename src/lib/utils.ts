@@ -1,6 +1,11 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { slug } from "github-slugger"
+import slugify from "slugify"
+
+// Helper function to match github-slugger behavior
+function slug(text: string): string {
+  return slugify(text, { lower: true, strict: true })
+}
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

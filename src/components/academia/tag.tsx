@@ -1,6 +1,11 @@
-import { slug } from "github-slugger"
+import slugify from "slugify"
 import { badgeVariants } from "../ui/badge";
 import { Link } from "@/libs/i18n/routing";
+
+// Helper function to match github-slugger behavior
+function slug(text: string): string {
+  return slugify(text, { lower: true, strict: true })
+}
 
 interface TagProps {
     tag: string;

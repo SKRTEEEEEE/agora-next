@@ -71,9 +71,10 @@ test.describe("Academia Utils", () => {
     });
 
     test("should handle single post", () => {
-      const sorted = sortPosts([mockPosts[0]]);
+      const singlePost = mockPosts[0];
+      const sorted = sortPosts([singlePost]);
       expect(sorted).toHaveLength(1);
-      expect(sorted[0].slug).toBe("/post1");
+      expect(sorted[0].slug).toBe(singlePost.slug);
     });
   });
 

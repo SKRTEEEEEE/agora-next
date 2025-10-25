@@ -6,8 +6,7 @@ npm run lint
 echo "🧪 Running type tests (no server required)..."
 npx tsc --noEmit
 
-# Temporarily disabled due to ESM import issues with nyc coverage
-# echo "📊 Checking test coverage (minimum 80%)..."
-# npm run test:coverage:unit
+echo "🧪 Running unit tests..."
+npm run test:unit
 
 echo "✅ All pre-commit checks passed!"
