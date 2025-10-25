@@ -17,7 +17,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run unit tests with coverage
-      run: npm run test:unit:coverage
+      run: npm run test:coverage:unit
     - name: Upload coverage reports
       uses: actions/upload-artifact@v4
       if: always()
