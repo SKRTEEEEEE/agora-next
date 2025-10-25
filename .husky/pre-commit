@@ -1,7 +1,12 @@
+#!/bin/sh
+
+echo "🔍 Running linting..."
 npm run lint
-npm run build
-npm run start &
-SERVER_PID=$!
-sleep 5
-nyc playwright test
-kill $SERVER_PID
+
+echo "🧪 Running type tests (no server required)..."
+npx tsc --noEmit
+
+echo "📊 Checking test coverage (minimum 80%)..."
+npm run test:coverage:unit
+
+echo "✅ All pre-commit checks passed!"

@@ -2,19 +2,75 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Testing
+
+This project has a comprehensive testing setup with different types of tests. For detailed documentation, see [docs/test.md](./docs/test.md).
+
+### Quick Start
+
+```bash
+# Run unit tests (no server required)
+npm test
+
+# Run all tests with coverage
+npm run test:all:coverage
+```
+
+### Test Structure
+
+- **Unit Tests** (`tests/unit/`): Fast tests that don't require a server
+- **Integration Tests** (`tests/integration/`): Tests that require the Next.js server
+- **E2E Tests** (`tests/e2e/`): End-to-end tests for complete user flows
+
+### Pre-commit Hooks
+
+The project uses Husky to run checks before commits:
+
+1. ESLint
+2. TypeScript type checking
+3. Unit tests with coverage (minimum 80%)
+
+Commits must follow [Conventional Commits](https://www.conventionalcommits.org/) format.
+
+## Docker
+
+Build and run the application with Docker:
+
+```bash
+# Build the image
+docker build -t profile-next .
+
+# Run the container
+docker run -p 3000:3000 profile-next
+```
+
+## Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
+- `npm test` - Run unit tests
+- `npm run test:unit:coverage` - Run unit tests with coverage
+- `npm run test:integration` - Run integration tests (requires server)
+- `npm run test:e2e` - Run E2E tests (requires server)
+- `npm run test:all` - Run all tests
+- `npm run coverage` - Generate coverage report
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

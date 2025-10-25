@@ -1,0 +1,44 @@
+# Node modules
+node_modules
+npm-debug.log
+
+# Next.js
+.next
+out
+
+# Testing
+docs/test-results
+docs/coverage-reports
+playwright-report
+
+# Git
+.git
+.gitignore
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+
+# Editor directories and files
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Misc
+README.md
+docs/
+tests/

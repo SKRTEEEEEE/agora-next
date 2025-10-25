@@ -3,8 +3,9 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
-    timeout-minutes: 60
+  unit-tests:
+    name: Unit Tests (No Server)
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -15,19 +16,47 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Run unit tests with coverage
+      run: npm run test:coverage:unit
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-unit
+        path: docs/coverage-reports/
+        retention-days: 30
+
+  integration-e2e-tests:
+    name: Integration & E2E Tests (With Server)
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Build project
+      run: npm run build
     - name: Start Next.js server
-      run: |
-        npm run build
-        npm run start &
+      run: npm run start &
       env:
         NODE_ENV: production
         NEXT_PUBLIC_API_MOCKING: "enabled"
         PORT: 3000
-    - name: Run Playwright tests
-      run: npx playwright test
+    - name: Wait for server to be ready
+      run: npx wait-on http://localhost:3000 -t 60000
+    - name: Run integration tests
+      run: npm run test:integration
+    - name: Run E2E tests
+      run: npm run test:e2e
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
-        path: playwright-report/
+        path: docs/test-results/
         retention-days: 30
