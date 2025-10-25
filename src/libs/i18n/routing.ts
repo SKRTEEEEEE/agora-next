@@ -14,23 +14,17 @@ export const routing = defineRouting({
   // List of rutes translation
   pathnames: {
     "/":"/",
-    // "/academia":{
-    //   en: "/academy",
-    //   de: "/akademie",
-    //   es: "/academia",
-    //   ca: "/academia"
-    // },
-    // "/academia/ejercicios":"/academia/ejercicios",
-    // "/academia/ejercicios/[...slug]":"/academia/ejercicios/[...slug]",
-    // "/academia/tarifas":"/academia/tarifas",
-    // "/academia/temas-ejercicios": "/academia/temas-ejercicios",
-    // "/academia/temas-ejercicios/[tema]": "/academia/temas-ejercicios/[tema]",
-    // "/academia/verify-email":"/academia/verify-email",
-    // "/admin":"/admin",
-    // "/admin/techs":"/admin/techs",
-    // "/admin/users":"/admin/users",
-
-
+    "/academia":{
+      en: "/academy",
+      de: "/akademie",
+      es: "/academia",
+      ca: "/academia"
+    },
+    "/academia/ejercicios":"/academia/ejercicios",
+    "/academia/ejercicios/[...slug]":"/academia/ejercicios/[...slug]",
+    "/academia/tarifas":"/academia/tarifas",
+    "/academia/temas-ejercicios": "/academia/temas-ejercicios",
+    "/academia/temas-ejercicios/[tema]": "/academia/temas-ejercicios/[tema]",
   }
 });
  
