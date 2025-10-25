@@ -14,17 +14,37 @@ export const routing = defineRouting({
   // List of rutes translation
   pathnames: {
     "/":"/",
-    "/academia":{
-      en: "/academy",
-      de: "/akademie",
-      es: "/academia",
-      ca: "/academia"
+    "/academia": "/academia",
+    "/academia/ejercicios": {
+      en: "/academia/exercises",
+      de: "/academia/ubungen",
+      es: "/academia/ejercicios",
+      ca: "/academia/exercicis"
     },
-    "/academia/ejercicios":"/academia/ejercicios",
-    "/academia/ejercicios/[...slug]":"/academia/ejercicios/[...slug]",
-    "/academia/tarifas":"/academia/tarifas",
-    "/academia/temas-ejercicios": "/academia/temas-ejercicios",
-    "/academia/temas-ejercicios/[tema]": "/academia/temas-ejercicios/[tema]",
+    "/academia/ejercicios/[...slug]": {
+      en: "/academia/exercises/[...slug]",
+      de: "/academia/ubungen/[...slug]",
+      es: "/academia/ejercicios/[...slug]",
+      ca: "/academia/exercicis/[...slug]"
+    },
+    "/academia/tarifas": {
+      en: "/academia/pricing",
+      de: "/academia/preise",
+      es: "/academia/tarifas",
+      ca: "/academia/tarifes"
+    },
+    "/academia/temas-ejercicios": {
+      en: "/academia/exercise-topics",
+      de: "/academia/ubungsthemen",
+      es: "/academia/temas-ejercicios",
+      ca: "/academia/temes-exercicis"
+    },
+    "/academia/temas-ejercicios/[tema]": {
+      en: "/academia/exercise-topics/[tema]",
+      de: "/academia/ubungsthemen/[tema]",
+      es: "/academia/temas-ejercicios/[tema]",
+      ca: "/academia/temes-exercicis/[tema]"
+    },
   }
 });
  

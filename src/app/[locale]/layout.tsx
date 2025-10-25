@@ -1,12 +1,12 @@
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
-import {notFound} from 'next/navigation';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Inter as FontSans } from "next/font/google";
 import { routing } from '@/libs/i18n/routing';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/theme-provider';
-import { ModeToggle } from '@/components/mode-toggle';
+import { SiteHeader } from '@/components/site-header/site-header';
 import { ReactNode } from 'react';
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
@@ -23,32 +23,34 @@ export default async function LocaleLayout({
   const { locale } = await params;
   
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as "en"|"de"|"es"|"ca")) {
+  if (!routing.locales.includes(locale as "en" | "de" | "es" | "ca")) {
     notFound();
   }
 
   // Providing all messages to the client
   // side is the easiest way to get started
-  const messages = await getMessages({locale});
- 
+  const messages = await getMessages({ locale });
+
   return (
     <html suppressHydrationWarning className="scroll-pt-[3.5rem]" lang={locale}>
       <body className={
-          cn("min-h-dvh bg-background font-sans antialiased", fontSans.variable)
-          }>
-            <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-        <NextIntlClientProvider  messages={messages}>
-          <nav className="w-full">
-            <ModeToggle/>
-          </nav>
-          <Toaster position="bottom-right"/>
-          {children}
-        </NextIntlClientProvider>
+        cn("min-h-dvh bg-background font-sans antialiased", fontSans.variable)
+      }>
+        <ThemeProvider
+          attribute="data-theme"
+          defaultTheme="dark-grays"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider messages={messages}>
+            <div className="relative flex min-h-dvh flex-col bg-background">
+              <SiteHeader />
+              <main className="flex-1">
+                {children}
+              </main>
+            </div>
+            <Toaster position="bottom-right" />
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>
