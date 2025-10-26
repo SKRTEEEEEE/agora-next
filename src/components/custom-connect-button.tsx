@@ -1,6 +1,6 @@
 "use client"
 
-import { generatePayload, getCookies, isLoggedIn, login } from "@/actions/auth"
+import { generatePayload, getUserData, isLoggedIn, login } from "@/actions/auth"
 import { rd } from "@/actions/revrd";
 import { ConnectButton } from "thirdweb/react"
 import { createWallet, inAppWallet } from "thirdweb/wallets";
@@ -91,26 +91,20 @@ export const CustomConnectButton = ({connectButtonLabel="Iniciar sesión"}:{conn
     const [user, setUser] = useState<User | null>(null)
     const [isLogged, setIsLogged] = useState(false)
 
-    useEffect(() => {
-      const checkLogin = async () => {
-        const logged = await isLoggedIn()
-        setIsLogged(logged)
-        if (logged) {
-          const cookies = await getCookies()
-          if (cookies && cookies.ctx) {
-            setUser({
-              id: cookies.ctx.id,
-              nick: cookies.ctx.nick || null,
-              img: cookies.ctx.img || null,
-              email: null,
-              address: cookies.iss || "",
-              role: cookies.ctx.role || null
-            })
-            setImg(cookies.ctx.img || undefined)
-          }
+    const loadUserData = async () => {
+      const logged = await isLoggedIn()
+      setIsLogged(logged)
+      if (logged) {
+        const userData = await getUserData()
+        if (userData) {
+          setUser(userData)
+          setImg(userData.img || undefined)
         }
       }
-      checkLogin()
+    }
+
+    useEffect(() => {
+      loadUserData()
     }, [])
 
     return(
@@ -120,6 +114,7 @@ export const CustomConnectButton = ({connectButtonLabel="Iniciar sesión"}:{conn
             user={user}
             buttonLabelVariant="ghost"
             buttonLabelClass="w-10 px-0"
+            onUserUpdate={loadUserData}
           />
         )}
         <ConnectButton
@@ -163,17 +158,14 @@ export const CustomConnectButton = ({connectButtonLabel="Iniciar sesión"}:{conn
             },
             doLogin: async (params) => {
                 console.info("logging in!")
-                const jwt = await login(params)
-                setImg(jwt.ctx.img || undefined)
-                setUser({
-                  id: jwt.ctx.id,
-                  nick: jwt.ctx.nick || null,
-                  img: jwt.ctx.img || null,
-                  email: null,
-                  address: jwt.iss || "",
-                  role: jwt.ctx.role || null
-                })
-                setIsLogged(true)
+                await login(params)
+                // Obtener datos completos del usuario
+                const userData = await getUserData()
+                if (userData) {
+                  setUser(userData)
+                  setImg(userData.img || undefined)
+                  setIsLogged(true)
+                }
                 rd("/")
             },
             getLoginPayload: async ({address}) => generatePayload({address}),

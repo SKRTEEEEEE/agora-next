@@ -45,16 +45,19 @@ export default function UserFormDialog({
   user, 
   formButtonLabel, 
   buttonLabelVariant="outline", 
-  buttonLabelClass="px-2" 
+  buttonLabelClass="px-2",
+  onUserUpdate
 }: { 
   user: User | false | null, 
   formButtonLabel?: JSX.Element, 
   buttonLabelVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined, 
-  buttonLabelClass?:string 
+  buttonLabelClass?:string,
+  onUserUpdate?: () => void
 }) {
   const account = useActiveAccount()
   const [previewImage, setPreviewImage] = useState<string | null>(user ? user.img : null)
   const [isUser, setIsUser] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
@@ -90,12 +93,18 @@ export default function UserFormDialog({
     };
 
     await updateUser(user.id, signatureRes, updatedData);
+    
+    // Cerrar el diálogo y notificar actualización
+    setIsOpen(false)
+    if (onUserUpdate) {
+      onUserUpdate()
+    }
   }
 
   const isFormDisabled = !user
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button className={buttonLabelClass} variant={buttonLabelVariant}>
           {formButtonLabel||<FormButtonLabelDef/>} 

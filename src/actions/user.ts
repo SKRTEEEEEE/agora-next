@@ -24,7 +24,7 @@ export async function updateUser(
     },
   });
   revalidatePath("/");
-  redirect("/");
+  return res;
 }
 
 export async function deleteUser(

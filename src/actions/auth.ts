@@ -1,6 +1,6 @@
 "use server"
 
-import { apiLoginUserUC } from "@/core/application/usecases/entities/user"
+import { apiLoginUserUC, apiReadUserByIdUC } from "@/core/application/usecases/entities/user"
 import { generatePayloadUC, getCookiesUC, isLoggedInUC, logoutUC, protAdmActUC, setJwtUC } from "@/core/application/usecases/services/auth"
 import { GenerateLoginPayloadParams, LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth"
 
@@ -35,4 +35,22 @@ export async function protAdmAct(){
 
 export async function getCookies(){
     return await getCookiesUC()
+}
+
+export async function getUserData() {
+    const cookies = await getCookiesUC()
+    if (!cookies || !cookies.ctx) return null
+    
+    // Obtener datos completos del usuario desde el backend
+    const userData = await apiReadUserByIdUC(cookies.ctx.id)
+    if (!userData || !userData.success) return null
+    
+    return {
+        id: userData.data.id,
+        nick: userData.data.nick,
+        img: userData.data.img,
+        email: userData.data.email,
+        address: userData.data.address,
+        role: userData.data.role
+    }
 }
