@@ -1,13 +1,14 @@
 "use client"
 
-import { generatePayload, isLoggedIn, login, logout } from "@/actions/auth"
+import { generatePayload, getCookies, isLoggedIn, login } from "@/actions/auth"
 import { rd } from "@/actions/revrd";
 import { ConnectButton } from "thirdweb/react"
 import { createWallet, inAppWallet } from "thirdweb/wallets";
 import { Button } from "./ui/button";
 import { Wallet } from "lucide-react";
 import { ThirdwebClientConfig } from "@/core/infrastructure/connectors/thirdweb-auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import UserFormDialog from "./site-header/user-form-dialog";
 
 const wallets = [
     inAppWallet({
@@ -76,10 +77,51 @@ const getClient = new ThirdwebClientConfig()
 const client = getClient.client
 
 
+type User = {
+  id: string;
+  nick: string | null;
+  img: string | null;
+  email: string | null;
+  address: string;
+  role: string | null;
+}
+
 export const CustomConnectButton = ({connectButtonLabel="Iniciar sesión"}:{connectButtonLabel?:string}) =>{
     const [img, setImg] = useState<string|undefined>(undefined)
+    const [user, setUser] = useState<User | null>(null)
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+      const checkLogin = async () => {
+        const logged = await isLoggedIn()
+        setIsLogged(logged)
+        if (logged) {
+          const cookies = await getCookies()
+          if (cookies && cookies.ctx) {
+            setUser({
+              id: cookies.ctx.id,
+              nick: cookies.ctx.nick || null,
+              img: cookies.ctx.img || null,
+              email: null,
+              address: cookies.iss || "",
+              role: cookies.ctx.role || null
+            })
+            setImg(cookies.ctx.img || undefined)
+          }
+        }
+      }
+      checkLogin()
+    }, [])
+
     return(
-      <div suppressHydrationWarning>
+      <div suppressHydrationWarning className="flex gap-2 items-center">
+        {isLogged && user && (
+          <UserFormDialog 
+            user={user}
+            buttonLabelVariant="ghost"
+            buttonLabelClass="w-10 px-0"
+          />
+        )}
         <ConnectButton
         client={client}
         wallets={wallets}
@@ -123,11 +165,22 @@ export const CustomConnectButton = ({connectButtonLabel="Iniciar sesión"}:{conn
                 console.info("logging in!")
                 const jwt = await login(params)
                 setImg(jwt.ctx.img || undefined)
+                setUser({
+                  id: jwt.ctx.id,
+                  nick: jwt.ctx.nick || null,
+                  img: jwt.ctx.img || null,
+                  email: null,
+                  address: jwt.iss || "",
+                  role: jwt.ctx.role || null
+                })
+                setIsLogged(true)
                 rd("/")
             },
             getLoginPayload: async ({address}) => generatePayload({address}),
             doLogout:async () => {
               await fetch('/api/logout', { method: 'GET' });
+              setIsLogged(false)
+              setUser(null)
           }
         }}
         />

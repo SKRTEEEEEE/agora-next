@@ -1,5 +1,5 @@
 import { VerifyLoginPayloadParams } from "thirdweb/auth";
-import { ApiUserRepository } from "@/core/infrastructure/api/user.repository";
+import { ApiUserRepository, UserUpdateData } from "@/core/infrastructure/api/user.repository";
 
 const apiUserRepository = new ApiUserRepository()
 
@@ -13,4 +13,19 @@ export const apiReadUsersUC = async () => {
 
 export const apiLoginUserUC = async (data:{payload: VerifyLoginPayloadParams}) => {
     return await apiUserRepository.login(data)
+}
+
+export const apiUpdateUserUC = async (data: {
+    payload: VerifyLoginPayloadParams;
+    formData: UserUpdateData;
+}) => {
+    return await apiUserRepository.update(data)
+}
+
+export const apiDeleteUserUC = async (data: {
+    payload: VerifyLoginPayloadParams;
+    id: string;
+    address: string;
+}) => {
+    return await apiUserRepository.deleteById(data)
 }

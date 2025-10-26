@@ -4,6 +4,13 @@ import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
 import { RoleType } from "@/core/domain/entities/role.type";
 import { setJwtUC } from "@/core/application/usecases/services/auth";
 
+export type UserUpdateData = {
+  id: string;
+  nick?: string | null;
+  img: string | null;
+  email: string | null;
+};
+
 export class ApiUserRepository extends ApiBaseRepository {
   constructor(baseUrl?: string) {
     super(Modules.USER, baseUrl);
@@ -60,6 +67,62 @@ export class ApiUserRepository extends ApiBaseRepository {
       throw new ApiResponseError("readById", ApiUserRepository, {
         module: this.module,
         optionalMessage: `Error reading user by ID: ${response.statusText}`,
+      });
+    return await response.json();
+  }
+
+  async update(data: {
+    payload: VerifyLoginPayloadParams;
+    formData: UserUpdateData;
+  }) {
+    const jwt = (await cookies()).get("jwt");
+    const response = await fetch(this.getEndpointModule("update"), {
+      method: this.endpoints.update.method,
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${jwt?.value}`,
+        "x-signed-payload": `${JSON.stringify(data.payload)}`,
+      },
+      body: JSON.stringify(data.formData),
+    });
+    if (!response.ok)
+      throw new ApiResponseError("update", ApiUserRepository, {
+        module: this.module,
+        optionalMessage: `Error updating user: ${response.statusText}`,
+      });
+    const res = await response.json();
+    // Actualizar JWT con nuevos datos
+    await setJwtUC(data.payload, {
+      nick: res.data.nick,
+      id: res.data.id,
+      role: res.data.role,
+      img: res.data.img || undefined,
+    });
+    return res;
+  }
+
+  async deleteById(data: {
+    payload: VerifyLoginPayloadParams;
+    id: string;
+    address: string;
+  }) {
+    const jwt = (await cookies()).get("jwt");
+    const response = await fetch(
+      this.getEndpointModule("delete").replace(":id", data.id),
+      {
+        method: this.endpoints.delete.method,
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${jwt?.value}`,
+          "x-signed-payload": `${JSON.stringify(data.payload)}`,
+        },
+        body: JSON.stringify({ id: data.id, address: data.address }),
+      }
+    );
+    if (!response.ok)
+      throw new ApiResponseError("deleteById", ApiUserRepository, {
+        module: this.module,
+        optionalMessage: `Error deleting user: ${response.statusText}`,
       });
     return await response.json();
   }
