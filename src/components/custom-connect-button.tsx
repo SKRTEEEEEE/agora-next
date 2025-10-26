@@ -158,12 +158,10 @@ export const CustomConnectButton = ({connectButtonLabel="Iniciar sesión"}:{conn
             },
             doLogin: async (params) => {
                 console.info("logging in!")
-                await login(params)
-                // Obtener datos completos del usuario
-                const userData = await getUserData()
-                if (userData) {
-                  setUser(userData)
-                  setImg(userData.img || undefined)
+                const loginResult = await login(params)
+                if (loginResult && loginResult.userData) {
+                  setUser(loginResult.userData)
+                  setImg(loginResult.userData.img || undefined)
                   setIsLogged(true)
                 }
                 rd("/")

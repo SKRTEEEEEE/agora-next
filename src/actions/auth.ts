@@ -17,16 +17,30 @@ export async function logout(){
 export async function login(payload: VerifyLoginPayloadParams){
     const res = await apiLoginUserUC({payload})
     if(!res || !res.success) throw new Error("Login failed")
+    
+    // Guardar JWT con los datos del usuario
     const jwt = await setJwtUC(
-    payload,
-    {
-      role: res.data.role,
-      nick: res.data.nick,
-      id: res.data.id,
-      img: res.data.img || undefined
+      payload,
+      {
+        role: res.data.role,
+        nick: res.data.nick,
+        id: res.data.id,
+        img: res.data.img || undefined
+      }
+    );
+    
+    // Retornar los datos completos del usuario directamente del login
+    return {
+      jwt,
+      userData: {
+        id: res.data.id,
+        nick: res.data.nick,
+        img: res.data.img,
+        email: res.data.email,
+        address: res.data.address,
+        role: res.data.role
+      }
     }
-  );
-  return jwt
 }
 
 export async function protAdmAct(){
