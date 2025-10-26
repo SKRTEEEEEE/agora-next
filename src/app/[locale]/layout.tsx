@@ -37,17 +37,8 @@ export default async function LocaleLayout({
         cn("min-h-dvh bg-background font-sans antialiased", fontSans.variable)
       }>
         <NextIntlClientProvider messages={messages}>
-          <div className="relative flex min-h-dvh flex-col bg-background">
-            <ThemeProvider
-              attribute="data-theme"
-              defaultTheme="dark-soft"
-              disableTransitionOnChange
-            >
-              <SiteHeader />
-              {children}
-            </ThemeProvider>
-          </div>
           <Toaster position="bottom-right" />
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>
