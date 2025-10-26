@@ -54,12 +54,14 @@ export class ApiUserRepository extends ApiBaseRepository {
     return await response.json();
   }
   async readById(id: string) {
+    const jwt = (await cookies()).get("jwt");
     const response = await fetch(
       this.getEndpointModule("readById").replace(":id", id),
       {
         method: this.endpoints.readById.method,
         headers: {
           "Content-type": "application/json",
+          Authorization: `Bearer ${jwt?.value}`,
         },
       }
     );

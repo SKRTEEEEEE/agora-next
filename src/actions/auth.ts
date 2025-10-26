@@ -52,19 +52,24 @@ export async function getCookies(){
 }
 
 export async function getUserData() {
-    const cookies = await getCookiesUC()
-    if (!cookies || !cookies.ctx) return null
-    
-    // Obtener datos completos del usuario desde el backend
-    const userData = await apiReadUserByIdUC(cookies.ctx.id)
-    if (!userData || !userData.success) return null
-    
-    return {
-        id: userData.data.id,
-        nick: userData.data.nick,
-        img: userData.data.img,
-        email: userData.data.email,
-        address: userData.data.address,
-        role: userData.data.role
+    try {
+        const cookies = await getCookiesUC()
+        if (!cookies || !cookies.ctx) return null
+        
+        // Obtener datos completos del usuario desde el backend
+        const userData = await apiReadUserByIdUC(cookies.ctx.id)
+        if (!userData || !userData.success) return null
+        
+        return {
+            id: userData.data.id,
+            nick: userData.data.nick,
+            img: userData.data.img,
+            email: userData.data.email,
+            address: userData.data.address,
+            role: userData.data.role
+        }
+    } catch (error) {
+        console.error("Error fetching user data:", error)
+        return null
     }
 }
