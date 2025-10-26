@@ -26,7 +26,7 @@ export function SiteHeader() {
           
           {/* Nav Links */}
           <Link 
-            href="/academia/ejercicios"
+            href="/ejercicios"
             className="text-sm font-medium transition-colors hover:text-primary hidden md:inline-block"
           >
             Ejercicios

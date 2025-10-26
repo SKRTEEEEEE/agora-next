@@ -15,7 +15,7 @@ interface TagProps {
 
 export function Tag({ tag, current, count }: TagProps) {
     const href = {
-        pathname: "/academia/temas-ejercicios/[tema]",
+        pathname: "/temas-ejercicios/[tema]",
         params: { tema: slug(tag) }
     } as const
     

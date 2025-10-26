@@ -14,7 +14,7 @@ interface PostItemProps {
 
 export function EjercicioItem({ slug, title, description, date, tags }: PostItemProps) {
     const href = {
-        pathname: "/academia/ejercicios/[...slug]",
+        pathname: "/ejercicios/[...slug]",
         params: { slug: slug.split("/") }
     } as const
     

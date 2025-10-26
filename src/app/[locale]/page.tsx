@@ -32,7 +32,7 @@ export default async function Home() {
             Aprende con ejercicios prácticos. Descubre nuestros ejercicios gratuitos o obtén acceso a todos por solo 3€/mes.
           </p>
           <div className="flex flex-col gap-4 justify-center sm:flex-row">
-            <Link href="/academia/ejercicios" className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}>
+            <Link href="/ejercicios" className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}>
               Ver ejercicios
             </Link>
           </div>
