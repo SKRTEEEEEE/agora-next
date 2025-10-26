@@ -15,9 +15,7 @@ body,
   height: 100%;
 }
 
-main {
-  width: 100dvw;
-}
+/* Removed width: 100dvw from main as it was causing layout issues */
 
 /* Theme: Light Grays */
 [data-theme="light-grays"] {
