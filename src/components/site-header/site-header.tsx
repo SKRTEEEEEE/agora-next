@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Icons } from "./icons";
 import ThemePopover from "../theme-popover";
 import { Link } from "@/libs/i18n/routing";
+import { CustomConnectButton } from "../custom-connect-button";
 
 const siteConfig = {
   name: "Agora",
@@ -35,6 +36,11 @@ export function SiteHeader() {
 
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="flex items-center gap-2">
+            {/* Login Button */}
+            <div className="w-40">
+              <CustomConnectButton connectButtonLabel="Iniciar sesión" />
+            </div>
+
             {/* GitHub */}
             <a
               href={siteConfig.links.github}

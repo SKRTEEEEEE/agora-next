@@ -30,6 +30,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.13",
     "@tailwindcss/typography": "^0.5.19",
+    "axios": "^1.12.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.544.0",
@@ -40,7 +41,9 @@
     "react-dom": "19.1.0",
     "slugify": "^1.6.6",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "thirdweb": "^5.110.3",
+    "zod": "^3.25.75"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.0.0",

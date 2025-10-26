@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { ReactNode } from 'react';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SiteHeader } from '@/components/site-header/site-header';
+import { ThirdwebProvider } from "thirdweb/react";
 
 
 
@@ -38,19 +39,21 @@ export default async function LocaleLayout({
       <body className={
         cn("min-h-dvh bg-background max-w-dvw font-sans antialiased", fontSans.variable)
       }>
-        <NextIntlClientProvider messages={messages}>
-          <Toaster position="bottom-right" />
-           <ThemeProvider
-        attribute="data-theme"
-        defaultTheme="dark-soft"
-        disableTransitionOnChange
-      >
-        <div className="relative flex min-h-dvh flex-col bg-background">
-          <SiteHeader />
-          {children}
-        </div>
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <ThirdwebProvider>
+          <NextIntlClientProvider messages={messages}>
+            <Toaster position="bottom-right" />
+            <ThemeProvider
+              attribute="data-theme"
+              defaultTheme="dark-soft"
+              disableTransitionOnChange
+            >
+              <div className="relative flex min-h-dvh flex-col bg-background">
+                <SiteHeader />
+                {children}
+              </div>
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </ThirdwebProvider>
       </body>
     </html>
   );
