@@ -36,22 +36,19 @@ export default async function LocaleLayout({
       <body className={
         cn("min-h-dvh bg-background font-sans antialiased", fontSans.variable)
       }>
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="dark-grays"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextIntlClientProvider messages={messages}>
-            <div className="relative flex min-h-dvh flex-col bg-background">
+        <NextIntlClientProvider messages={messages}>
+          <div className="relative flex min-h-dvh flex-col bg-background">
+            <ThemeProvider
+              attribute="data-theme"
+              defaultTheme="dark-soft"
+              disableTransitionOnChange
+            >
               <SiteHeader />
-              <main className="flex-1">
-                {children}
-              </main>
-            </div>
-            <Toaster position="bottom-right" />
-          </NextIntlClientProvider>
-        </ThemeProvider>
+              {children}
+            </ThemeProvider>
+          </div>
+          <Toaster position="bottom-right" />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
