@@ -30,7 +30,14 @@ export abstract class ApiBaseRepository {
         [Modules.PROJECTS]: {
             // Ejemplo: list: { endpoint: "projects", method: "GET" }
         },
-        [Modules.ROLE]: {},
+        [Modules.ROLE]: {
+            create: {endpoint: "role", method: "POST"},
+            readById: {endpoint: "role/:id", method: "GET"},
+            readAll: {endpoint: "role", method: "GET"},
+            update: {endpoint: "role/:id", method: "PUT"},
+            delete: {endpoint: "role/:id", method: "DELETE"},
+            deleteMany: {endpoint: "role/many", method: "DELETE"},
+        },
         [Modules.TECH]: {
             create: {endpoint: "tech", method: "POST"},
             update: {endpoint: "tech", method: "PUT"},

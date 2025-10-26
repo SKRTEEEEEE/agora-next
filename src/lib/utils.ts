@@ -63,3 +63,17 @@ export function getPostsByTagSlug(posts: Array<Ejercicio>, tag: string) {
     return slugifiedTags.includes(tag)
   })
 }
+
+// Payment utilities
+export function generatePaymentLink(userId: string, planType: 'STUDENT' | 'STUDENT_P') {
+  // Define los enlaces base de Stripe (reemplaza con tus enlaces reales)
+  const stripeLinks = {
+    STUDENT: "https://buy.stripe.com/test_9AQdUw0QVdLZ3Ic14a",
+    STUDENT_P: "https://buy.stripe.com/test_fZe17K2Z3dLZ2E8aEL"
+  };
+
+  // Añade el userId como parámetro de consulta al enlace
+  const paymentLink = `${stripeLinks[planType]}?client_reference_id=${userId}`;
+
+  return paymentLink;
+}

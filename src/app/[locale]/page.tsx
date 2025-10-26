@@ -35,6 +35,9 @@ export default async function Home() {
             <Link href="/ejercicios" className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}>
               Ver ejercicios
             </Link>
+            <Link href="/tarifas" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full sm:w-fit")}>
+              Tarifas
+            </Link>
           </div>
         </div>
       </section>

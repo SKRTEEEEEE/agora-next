@@ -1,4 +1,5 @@
 import { Check } from "lucide-react"
+import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,6 +12,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { plansBasicInfo } from "@/lib/data"
+import { userInCookiesUC } from "@/core/presentation/controllers/user"
+import { RoleType } from "@/core/domain/entities/role.type"
+import { generatePaymentLink } from "@/lib/utils"
+import { CustomConnectButton } from "../custom-connect-button"
 
 function FeatureList({ features }: { features: string[] }) {
   return (
@@ -25,7 +30,73 @@ function FeatureList({ features }: { features: string[] }) {
   )
 }
 
-export function SubscriptionPlanCard({ plan }: { plan: typeof plansBasicInfo[number] }) {
+async function PlanButton({ planPrice, planName }: { planPrice: string; planName: string }) {
+  const user = await userInCookiesUC()
+  
+  // Plan Gratuito
+  if (planPrice === "0€") {
+    if (!user) {
+      return (
+        <div className="w-full">
+          <CustomConnectButton connectButtonLabel="Comenzar gratis" />
+        </div>
+      )
+    }
+    if (user.role === null || user.role === RoleType.STUDENT || user.role === RoleType.STUDENT_PRO || user.role === RoleType.ADMIN) {
+      return <Button className="w-full" disabled variant="secondary">Tu plan actual</Button>
+    }
+    return <Button className="w-full" disabled variant="outline">Incluido en tu plan</Button>
+  }
+  
+  // Plan Básico
+  if (planName === "Plan Básico") {
+    if (!user) {
+      return <Button className="w-full">Inicia sesión</Button>
+    }
+    if (user.role === null) {
+      const link = generatePaymentLink(user.id, "STUDENT")
+      return (
+        <Link href={link} className="w-full">
+          <Button className="w-full">Probar gratis</Button>
+        </Link>
+      )
+    }
+    if (user.role === RoleType.STUDENT) {
+      return <Button className="w-full" disabled variant="secondary">Tu plan actual</Button>
+    }
+    const link = generatePaymentLink(user.id, "STUDENT")
+    return (
+      <Link href={link} className="w-full">
+        <Button className="w-full" variant="secondary">
+          {user.role === RoleType.STUDENT_PRO ? "Cambiar plan" : "Primer mes gratis"}
+        </Button>
+      </Link>
+    )
+  }
+  
+  // Plan Premium
+  if (planName === "Plan Premium") {
+    if (!user) {
+      return <Button className="w-full">Inicia sesión</Button>
+    }
+    if (user.role === null || user.role === RoleType.STUDENT) {
+      const link = generatePaymentLink(user.id, "STUDENT_P")
+      return (
+        <Link href={link} className="w-full">
+          <Button className="w-full">{user.role ? "Incrementar plan" : "Obtener premium"}</Button>
+        </Link>
+      )
+    }
+    if (user.role === RoleType.STUDENT_PRO) {
+      return <Button className="w-full" disabled variant="secondary">Tu plan actual</Button>
+    }
+    return <Button className="w-full" disabled variant="outline">Incluido en tu plan</Button>
+  }
+  
+  return <Button className="w-full">Suscribirse</Button>
+}
+
+export async function SubscriptionPlanCard({ plan }: { plan: typeof plansBasicInfo[number] }) {
   return (
     <Card className="w-full flex flex-col">
       <CardHeader>
@@ -67,9 +138,7 @@ export function SubscriptionPlanCard({ plan }: { plan: typeof plansBasicInfo[num
         )}
       </CardContent>
       <CardFooter>
-        <Button className="w-full" variant={plan.price === "0€" ? "outline" : "default"}>
-          {plan.price === "0€" ? "Registrarse" : "Suscribirse"}
-        </Button>
+        <PlanButton planPrice={plan.price} planName={plan.name} />
       </CardFooter>
     </Card>
   )
