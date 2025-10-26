@@ -1,9 +1,11 @@
 import { ejercicios } from "#site/content";
 import { EjercicioItem } from "@/components/academia/ejercicio-item";
+import { SubscriptionPlansDialog } from "@/components/academia/subscription-plans-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/libs/i18n/routing";
 import { cn, sortPosts } from "@/lib/utils";
 import { Metadata } from "next";
+import { userInCookiesUC } from "@/core/presentation/controllers/user";
 
 const routesConfig = {
   academia: {
@@ -20,6 +22,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const latestPosts = sortPosts(ejercicios).slice(0, 5)
+  const user = await userInCookiesUC()
 
   return (
     <>
@@ -35,9 +38,7 @@ export default async function Home() {
             <Link href="/ejercicios" className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}>
               Ver ejercicios
             </Link>
-            <Link href="/tarifas" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full sm:w-fit")}>
-              Tarifas
-            </Link>
+            <SubscriptionPlansDialog buttonTitle="Tarifas" user={user} />
           </div>
         </div>
       </section>
