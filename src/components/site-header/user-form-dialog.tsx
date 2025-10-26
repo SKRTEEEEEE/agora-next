@@ -1,5 +1,6 @@
 "use client"
 import { updateUser } from "@/actions/user";
+import { updateImg, uploadImg } from "@/actions/img";
 import { Button } from "../ui/button";
 import { useActiveAccount } from "thirdweb/react";
 import { signLoginPayload } from "thirdweb/auth";
@@ -15,6 +16,7 @@ import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogT
 import { UserCog } from "lucide-react";
 import { Separator } from "../ui/separator";
 import DeleteUserButton from "./delete-user-button";
+import Image from "next/image";
 
 const FormButtonLabelDef = () => {
   return (
@@ -56,8 +58,10 @@ export default function UserFormDialog({
 }) {
   const account = useActiveAccount()
   const [previewImage, setPreviewImage] = useState<string | null>(user ? user.img : null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [isUser, setIsUser] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
 
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
@@ -75,8 +79,42 @@ export default function UserFormDialog({
       email: user ? user.email || undefined : undefined,
     });
     setPreviewImage(user ? user.img : null);
+    setSelectedFile(null);
     setIsUser(user ? true : false)
   }, [user, account, form]);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    setSelectedFile(file);
+
+    const imageUrl = URL.createObjectURL(file);
+    setPreviewImage(imageUrl);
+  }
+
+  const setImageData = async () => {
+    if (!selectedFile || !user) return
+
+    try {
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append('img', selectedFile);
+
+      let imageUrl: string;
+      if (user.img) {
+        imageUrl = await updateImg(formData, user.img);
+      } else {
+        imageUrl = await uploadImg(formData);
+      }
+      form.setValue("img", imageUrl)
+      return imageUrl;
+    } catch (error) {
+      console.error("Error al subir la imagen:", error);
+      throw error;
+    } finally {
+      setIsUploading(false);
+    }
+  }
 
   async function onSubmit(formData: z.infer<typeof userSchema>) {
     if (!account || !user) {
@@ -84,20 +122,29 @@ export default function UserFormDialog({
       return
     }
 
-    const payload = await generatePayload({ address: account.address })
-    const signatureRes = await signLoginPayload({ account, payload })
-    const updatedData = {
-      ...formData,
-      email: (typeof formData.email === "string") ? formData.email : null,
-      img: form.getValues().img || null
-    };
+    try {
+      // Si hay un archivo seleccionado, subirlo primero
+      if (selectedFile !== null) {
+        await setImageData()
+      }
 
-    await updateUser(user.id, signatureRes, updatedData);
-    
-    // Cerrar el diálogo y notificar actualización
-    setIsOpen(false)
-    if (onUserUpdate) {
-      onUserUpdate()
+      const payload = await generatePayload({ address: account.address })
+      const signatureRes = await signLoginPayload({ account, payload })
+      const updatedData = {
+        ...formData,
+        email: (typeof formData.email === "string") ? formData.email : null,
+        img: form.getValues().img || null
+      };
+
+      await updateUser(user.id, signatureRes, updatedData);
+      
+      // Cerrar el diálogo y notificar actualización
+      setIsOpen(false)
+      if (onUserUpdate) {
+        onUserUpdate()
+      }
+    } catch (error) {
+      console.error("Error al actualizar usuario:", error);
     }
   }
 
@@ -152,8 +199,43 @@ export default function UserFormDialog({
 
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="picture">Imagen Perfil</Label>
+              {previewImage && (
+                <div className="flex items-center justify-between sm:w-[400px]">
+                  <Image 
+                    src={previewImage} 
+                    id="picture" 
+                    alt="Imagen de perfil" 
+                    width={60} 
+                    height={60} 
+                    className="rounded-xl border-border border-2" 
+                  />
+                  <Button 
+                    type="button"
+                    variant={"secondary"} 
+                    className="my-auto" 
+                    onClick={() => {
+                      setPreviewImage(null);
+                      setSelectedFile(null);
+                    }} 
+                    disabled={isFormDisabled}
+                  >
+                    Modificar imagen
+                  </Button>
+                </div>
+              )}
+
+              {!previewImage && (
+                <Input 
+                  id="picture" 
+                  type="file" 
+                  accept="image/*"
+                  placeholder="Click para cargar una imagen" 
+                  onChange={handleFileChange} 
+                  disabled={isFormDisabled} 
+                />
+              )}
               <FormDescription className="text-xs">
-                Próximamente podrás subir tu propia imagen de perfil
+                Tamaño máximo: 4MB. Formatos: PNG, JPG, GIF, WEBP
               </FormDescription>
             </div>
             
@@ -169,10 +251,10 @@ export default function UserFormDialog({
 
                 <Button
                   type="submit"
-                  disabled={isFormDisabled || !account}
+                  disabled={isFormDisabled || !account || isUploading}
                   className="w-full"
                 >
-                  {isFormDisabled ? "Inicia sesión para actualizar" : "Actualizar Perfil"}
+                  {isUploading ? "Subiendo imagen..." : isFormDisabled ? "Inicia sesión para actualizar" : "Actualizar Perfil"}
                 </Button>
               </div>
             </DialogFooter>
