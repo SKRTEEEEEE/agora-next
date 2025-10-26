@@ -4,6 +4,7 @@ import { Icons } from "./icons";
 import ThemePopover from "../theme-popover";
 import { Link } from "@/libs/i18n/routing";
 import { CustomConnectButton } from "../custom-connect-button";
+import { userInCookiesUC } from "@/core/presentation/controllers/user";
 
 const siteConfig = {
   name: "Agora",
@@ -14,7 +15,9 @@ const siteConfig = {
   }
 }
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  const user = await userInCookiesUC();
+  
   return (
     <header className="z-10 sticky top-0 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
@@ -38,7 +41,7 @@ export function SiteHeader() {
           <nav className="flex items-center gap-2">
             {/* Login Button */}
             <div className="w-40">
-              <CustomConnectButton connectButtonLabel="Iniciar sesión" />
+              <CustomConnectButton connectButtonLabel="Iniciar sesión" initialUser={user} />
             </div>
 
             {/* GitHub */}

@@ -86,10 +86,16 @@ type User = {
   role: string | null;
 }
 
-export const CustomConnectButton = ({connectButtonLabel="Iniciar sesión"}:{connectButtonLabel?:string}) =>{
-    const [img, setImg] = useState<string|undefined>(undefined)
-    const [user, setUser] = useState<User | null>(null)
-    const [isLogged, setIsLogged] = useState(false)
+export const CustomConnectButton = ({
+  connectButtonLabel="Iniciar sesión",
+  initialUser = null
+}:{
+  connectButtonLabel?:string,
+  initialUser?: User | null
+}) =>{
+    const [img, setImg] = useState<string|undefined>(initialUser?.img || undefined)
+    const [user, setUser] = useState<User | null>(initialUser)
+    const [isLogged, setIsLogged] = useState(!!initialUser)
 
     const loadUserData = async () => {
       const logged = await isLoggedIn()
@@ -104,8 +110,11 @@ export const CustomConnectButton = ({connectButtonLabel="Iniciar sesión"}:{conn
     }
 
     useEffect(() => {
-      loadUserData()
-    }, [])
+      // Solo cargar si no hay usuario inicial
+      if (!initialUser) {
+        loadUserData()
+      }
+    }, [initialUser])
 
     return(
       <div suppressHydrationWarning className="flex gap-2 items-center">
