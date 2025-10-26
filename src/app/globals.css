@@ -249,7 +249,19 @@ body,
   --border: 0 0% 25%;
   --input: 0 0% 31%;
   --ring: 265 80% 48%;
+  --chart-1: 277 80% 68%;
+  --chart-2: 67 80% 68%;
+  --chart-3: 127 80% 68%;
+  --chart-4: 247 80% 68%;
+  --chart-5: 307 80% 68%;
   --radius: 1.5rem;
+}
+
+/* Container utility configuration for centering */
+@utility container {
+  padding-inline: 2rem;
+  margin-inline: auto;
+  max-width: 1400px;
 }
 
 @layer base {

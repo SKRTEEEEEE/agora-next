@@ -5,9 +5,11 @@ import { cn } from '@/lib/utils';
 import { Inter as FontSans } from "next/font/google";
 import { routing } from '@/libs/i18n/routing';
 import { Toaster } from '@/components/ui/sonner';
+import { ReactNode } from 'react';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SiteHeader } from '@/components/site-header/site-header';
-import { ReactNode } from 'react';
+
+
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -34,11 +36,20 @@ export default async function LocaleLayout({
   return (
     <html suppressHydrationWarning className="scroll-pt-[3.5rem]" lang={locale}>
       <body className={
-        cn("min-h-dvh bg-background font-sans antialiased", fontSans.variable)
+        cn("min-h-dvh bg-background max-w-dvw font-sans antialiased", fontSans.variable)
       }>
         <NextIntlClientProvider messages={messages}>
           <Toaster position="bottom-right" />
+           <ThemeProvider
+        attribute="data-theme"
+        defaultTheme="dark-soft"
+        disableTransitionOnChange
+      >
+        <div className="relative flex min-h-dvh flex-col bg-background">
+          <SiteHeader />
           {children}
+        </div>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
