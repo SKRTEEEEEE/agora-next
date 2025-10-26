@@ -13,9 +13,14 @@ interface PostItemProps {
 }
 
 export function EjercicioItem({ slug, title, description, date, tags }: PostItemProps) {
+    // Remove 'ejercicios/' prefix if present and split the rest
+    const slugParts = slug.startsWith("ejercicios/") 
+        ? slug.substring("ejercicios/".length).split("/")
+        : slug.split("/")
+    
     const href = {
         pathname: "/ejercicios/[...slug]",
-        params: { slug: slug.split("/") }
+        params: { slug: slugParts }
     } as const
     
     return <article className="flex flex-col gap-2 border-border border-b py-3">
