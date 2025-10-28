@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Link } from "@/libs/i18n/routing"
+import { Link } from "@/lib/i18n/routing"
 import { cn, generatePaymentLink } from "@/lib/utils";
 import { RoleType } from "@/core/domain/entities/role.type";
 

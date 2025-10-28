@@ -2,7 +2,7 @@ import { buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Icons } from "./icons";
 import ThemePopover from "../theme-popover";
-import { Link } from "@/libs/i18n/routing";
+import { Link } from "@/lib/i18n/routing";
 import { CustomConnectButton } from "../custom-connect-button";
 import { userInCookiesUC } from "@/core/presentation/controllers/user";
 

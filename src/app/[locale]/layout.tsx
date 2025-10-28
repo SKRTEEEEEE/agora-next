@@ -3,7 +3,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Inter as FontSans } from "next/font/google";
-import { routing } from '@/libs/i18n/routing';
+import { routing } from '@/lib/i18n/routing';
 import { Toaster } from '@/components/ui/sonner';
 import { ReactNode } from 'react';
 import { ThemeProvider } from '@/components/theme-provider';

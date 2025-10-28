@@ -2,7 +2,7 @@ import { ejercicios } from "#site/content";
 import { EjercicioItem } from "@/components/academia/ejercicio-item";
 import { SubscriptionPlansDialog } from "@/components/academia/subscription-plans-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { Link } from "@/libs/i18n/routing";
+import { Link } from "@/lib/i18n/routing";
 import { cn, sortPosts } from "@/lib/utils";
 import { Metadata } from "next";
 import { userInCookiesUC } from "@/core/presentation/controllers/user";

@@ -2,7 +2,7 @@ import { Calendar } from "lucide-react";
 import { buttonVariants } from "../ui/button";
 import { cn, formatDate } from "@/lib/utils";
 import { Tag } from "./tag";
-import { Link } from "@/libs/i18n/routing";
+import { Link } from "@/lib/i18n/routing";
 
 interface PostItemProps {
     slug: string;
