@@ -8,7 +8,7 @@ export enum Modules {
 
 type EndpointConfig = {
     endpoint:  ((opt: string|string[])=>string )| string;
-    method: "GET" | "POST" | "PUT" | "DELETE";
+    method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 };
 
 type ModuleConfig = {
@@ -51,10 +51,11 @@ export abstract class ApiBaseRepository {
             readAll: {endpoint: "user", method: "GET"},
             login: {endpoint: "user", method: "POST"},
             update: {endpoint: "user", method: "PUT"},
-            updateSolicitud: {endpoint: "user/solicitud", method: "PUT"},
-            delete: {endpoint: "user/:id", method: "DELETE"},
-            giveRole: {endpoint: "user/role", method: "PUT"},
-            verifyEmail: {endpoint: "user/verify-email", method: "POST"},
+            updateSolicitud: {endpoint: "user/request", method: "PATCH"},
+            delete: {endpoint: "user", method: "DELETE"},
+            giveRole: {endpoint: "user/give", method: "PATCH"},
+            verifyEmail: {endpoint: "user/verify-email", method: "PATCH"},
+            resendVerificationEmail: {endpoint: "user", method: "PUT"},
         }
     };
 

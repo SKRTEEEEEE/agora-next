@@ -1,10 +1,9 @@
 "use server";
 
-import { apiUpdateUserUC, apiDeleteUserUC } from "@/core/application/usecases/entities/user";
+import { apiUpdateUserUC, apiDeleteUserUC, apiUpdateUserSolicitudUC, apiResendVerificationEmailUC } from "@/core/application/usecases/entities/user";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { LoginPayload } from "thirdweb/auth";
-import { UserUpdateData } from "@/core/infrastructure/api/user.repository";
+import { RoleType } from "@/core/domain/entities/role.type";
 
 export async function updateUser(
   id: string,
@@ -40,4 +39,20 @@ export async function deleteUser(
     throw new Error(res.message || "Error deleting user");
   }
   revalidatePath("/");
+}
+
+export async function updateUserSolicitud(data: {
+  id: string;
+  solicitud: RoleType;
+}) {
+  const res = await apiUpdateUserSolicitudUC(data);
+  revalidatePath("/");
+  return res;
+}
+
+export async function resendVerificationEmail(userI: {
+  id: string;
+  email: string;
+}) {
+  return await apiResendVerificationEmailUC(userI);
 }

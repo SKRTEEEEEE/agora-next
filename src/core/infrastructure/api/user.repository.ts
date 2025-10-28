@@ -1,6 +1,6 @@
 import { ApiBaseRepository, Modules, ApiResponseError } from "./base.repository";
 import { cookies } from "next/headers";
-import { LoginPayload, VerifyLoginPayloadParams } from "thirdweb/auth";
+import { VerifyLoginPayloadParams } from "thirdweb/auth";
 import { RoleType } from "@/core/domain/entities/role.type";
 import { setJwtUC } from "@/core/application/usecases/services/auth";
 
@@ -110,7 +110,7 @@ export class ApiUserRepository extends ApiBaseRepository {
   }) {
     const jwt = (await cookies()).get("jwt");
     const response = await fetch(
-      this.getEndpointModule("delete").replace(":id", data.id),
+      this.getEndpointModule("delete"),
       {
         method: this.endpoints.delete.method,
         headers: {
@@ -125,6 +125,42 @@ export class ApiUserRepository extends ApiBaseRepository {
       throw new ApiResponseError("deleteById", ApiUserRepository, {
         module: this.module,
         optionalMessage: `Error deleting user: ${response.statusText}`,
+      });
+    return await response.json();
+  }
+
+  async updateSolicitud(data: { id: string; solicitud: RoleType }) {
+    const jwt = (await cookies()).get("jwt");
+    const response = await fetch(this.getEndpointModule("updateSolicitud"), {
+      method: this.endpoints.updateSolicitud.method,
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${jwt?.value}`,
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok)
+      throw new ApiResponseError("updateSolicitud", ApiUserRepository, {
+        module: this.module,
+        optionalMessage: `Error updating user solicitud: ${response.statusText}`,
+      });
+    return await response.json();
+  }
+
+  async resendVerificationEmail(data: { id: string; email: string }) {
+    const jwt = (await cookies()).get("jwt");
+    const response = await fetch(this.getEndpointModule("resendVerificationEmail"), {
+      method: this.endpoints.resendVerificationEmail.method,
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${jwt?.value}`,
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok)
+      throw new ApiResponseError("resendVerificationEmail", ApiUserRepository, {
+        module: this.module,
+        optionalMessage: `Error resending verification email: ${response.statusText}`,
       });
     return await response.json();
   }

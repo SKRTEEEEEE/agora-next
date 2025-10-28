@@ -38,7 +38,9 @@ export async function login(payload: VerifyLoginPayloadParams){
         img: res.data.img,
         email: res.data.email,
         address: res.data.address,
-        role: res.data.role
+        role: res.data.role,
+        isVerified: res.data.isVerified,
+        solicitud: res.data.solicitud
       }
     }
 }
@@ -66,7 +68,9 @@ export async function getUserData() {
             img: userData.data.img,
             email: userData.data.email,
             address: userData.data.address,
-            role: userData.data.role
+            role: userData.data.role,
+            isVerified: userData.data.isVerified,
+            solicitud: userData.data.solicitud
         }
     } catch (error) {
         console.error("Error fetching user data:", error)

@@ -17,6 +17,8 @@ import { UserCog } from "lucide-react";
 import { Separator } from "../ui/separator";
 import DeleteUserButton from "./delete-user-button";
 import Image from "next/image";
+import { VerificacionEmailAlert } from "./verificacion-email-alert";
+import SolicitudRoleButton from "./solicitud-role";
 
 const FormButtonLabelDef = () => {
   return (
@@ -41,6 +43,8 @@ type User = {
   email: string | null;
   address: string;
   role: string | null;
+  isVerified: boolean;
+  solicitud: string | null;
 }
 
 export default function UserFormDialog({ 
@@ -261,7 +265,13 @@ export default function UserFormDialog({
           </form>
         </Form>
         <Separator className="my-2" />
-        <div className="grid grid-cols-1 gap-4">
+        {isUser && user && user.email && <VerificacionEmailAlert user={user} />}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            {isUser && user && !user.solicitud && user.email && user.role === null && (
+              <SolicitudRoleButton id={user.id} />
+            )}
+          </div>
           {isUser && user && <DeleteUserButton id={user.id} address={user.address} />}
         </div>
       </DialogContent>

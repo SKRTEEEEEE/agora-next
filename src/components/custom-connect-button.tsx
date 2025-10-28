@@ -84,6 +84,8 @@ type User = {
   email: string | null;
   address: string;
   role: string | null;
+  isVerified: boolean;
+  solicitud: string | null;
 }
 
 export const CustomConnectButton = ({

@@ -1,5 +1,6 @@
 import { VerifyLoginPayloadParams } from "thirdweb/auth";
 import { ApiUserRepository, UserUpdateData } from "@/core/infrastructure/api/user.repository";
+import { RoleType } from "@/core/domain/entities/role.type";
 
 const apiUserRepository = new ApiUserRepository()
 
@@ -28,4 +29,18 @@ export const apiDeleteUserUC = async (data: {
     address: string;
 }) => {
     return await apiUserRepository.deleteById(data)
+}
+
+export const apiUpdateUserSolicitudUC = async (data: {
+    id: string;
+    solicitud: RoleType;
+}) => {
+    return await apiUserRepository.updateSolicitud(data)
+}
+
+export const apiResendVerificationEmailUC = async (userI: {
+    id: string;
+    email: string;
+}) => {
+    return await apiUserRepository.resendVerificationEmail(userI)
 }

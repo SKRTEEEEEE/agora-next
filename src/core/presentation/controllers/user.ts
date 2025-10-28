@@ -16,7 +16,9 @@ export const userInCookiesUC = async () => {
             img: userData.data.img,
             email: userData.data.email,
             address: userData.data.address,
-            role: userData.data.role
+            role: userData.data.role,
+            isVerified: userData.data.isVerified,
+            solicitud: userData.data.solicitud
         }
     } catch (error) {
         console.error("Error fetching user from cookies:", error)
