@@ -1,13 +1,16 @@
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
-import {notFound} from 'next/navigation';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Inter as FontSans } from "next/font/google";
-import { routing } from '@/libs/i18n/routing';
+import { routing } from '@/lib/i18n/routing';
 import { Toaster } from '@/components/ui/sonner';
-import { ThemeProvider } from '@/components/theme-provider';
-import { ModeToggle } from '@/components/mode-toggle';
 import { ReactNode } from 'react';
+import { ThemeProvider } from '@/components/theme-provider';
+import { SiteHeader } from '@/components/site-header/site-header';
+import { ThirdwebProvider } from "thirdweb/react";
+
+
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -23,33 +26,34 @@ export default async function LocaleLayout({
   const { locale } = await params;
   
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as "en"|"de"|"es"|"ca")) {
+  if (!routing.locales.includes(locale as "en" | "de" | "es" | "ca")) {
     notFound();
   }
 
   // Providing all messages to the client
   // side is the easiest way to get started
-  const messages = await getMessages({locale});
- 
+  const messages = await getMessages({ locale });
+
   return (
     <html suppressHydrationWarning className="scroll-pt-[3.5rem]" lang={locale}>
       <body className={
-          cn("min-h-dvh bg-background font-sans antialiased", fontSans.variable)
-          }>
+        cn("min-h-dvh bg-background max-w-dvw font-sans antialiased", fontSans.variable)
+      }>
+        <ThirdwebProvider>
+          <NextIntlClientProvider messages={messages}>
+            <Toaster position="bottom-right" />
             <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-        <NextIntlClientProvider  messages={messages}>
-          <nav className="w-full">
-            <ModeToggle/>
-          </nav>
-          <Toaster position="bottom-right"/>
-          {children}
-        </NextIntlClientProvider>
-        </ThemeProvider>
+              attribute="data-theme"
+              defaultTheme="dark-soft"
+              disableTransitionOnChange
+            >
+              <div className="relative flex min-h-dvh flex-col bg-background">
+                <SiteHeader />
+                {children}
+              </div>
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </ThirdwebProvider>
       </body>
     </html>
   );
