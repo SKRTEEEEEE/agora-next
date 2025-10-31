@@ -29,6 +29,16 @@ jobs:
         run: npm ci
 
       - name: Build Next.js 📦
+        env:
+          # Dummy environment variables for build-time
+          # These are only needed for static analysis during build
+          NEXT_PUBLIC_THIRDWEB_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || 'build_time_dummy_client_id' }}
+          THIRDWEB_ADMIN_PRIVATE_KEY: ${{ secrets.THIRDWEB_ADMIN_PRIVATE_KEY || 'build_time_dummy_private_key' }}
+          NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN || 'http://localhost:3000' }}
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000' }}
+          STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY || 'sk_test_dummy' }}
+          STRIPE_WEBHOOK_KEY: ${{ secrets.STRIPE_WEBHOOK_KEY || 'whsec_dummy' }}
+          UPLOADTHING_TOKEN: ${{ secrets.UPLOADTHING_TOKEN || 'dummy_token' }}
         run: npm run build
 
       - name: Lint code 💅
