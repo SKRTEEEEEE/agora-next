@@ -30,3 +30,5 @@ Error: Client Id not found
 }
 Error: Process completed with exit code 1.
 ```
+## Key points
+- [ ] Arreglar la github action nextjs.yml
