@@ -76,6 +76,16 @@ test.describe("Academia Utils", () => {
       expect(sorted).toHaveLength(1);
       expect(sorted[0].slug).toBe(singlePost.slug);
     });
+
+    test("should handle posts with equal dates (coverage for return 0)", () => {
+      const equalDatePosts: Ejercicio[] = [
+        { slug: "/a", slugAsParams: "a", title: "A", date: "2024-01-01", published: true, body: "" },
+        { slug: "/b", slugAsParams: "b", title: "B", date: "2024-01-01", published: true, body: "" }
+      ];
+      const sorted = sortPosts([...equalDatePosts]);
+      expect(sorted.length).toBe(2);
+      expect(sorted[0].date).toBe(sorted[1].date);
+    });
   });
 
   test.describe("getAllTags()", () => {

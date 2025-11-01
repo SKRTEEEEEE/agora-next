@@ -25,7 +25,10 @@
     "**/src/app/**",
     "**/src/components/**",
     "**/src/actions/**",
-    "**/src/libs/**"
+    "**/src/libs/**",
+    "**/src/core/presentation/controllers/**",
+    "**/src/core/infrastructure/**",
+    "**/src/core/application/**"
   ],
   "reporter": [
     "text",

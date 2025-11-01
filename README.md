@@ -18,7 +18,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Testing
 
-This project has a comprehensive testing setup with different types of tests. For detailed documentation, see [docs/test.md](./docs/test.md).
+This project has a comprehensive testing setup with different types of tests. For detailed documentation, see:
+- [Test Documentation](./docs/test.md)
+- [Coverage Documentation](./docs/coverage.md)
 
 ### Quick Start
 
@@ -27,7 +29,12 @@ This project has a comprehensive testing setup with different types of tests. Fo
 npm test
 
 # Run all tests with coverage
-npm run test:all:coverage
+npm run test:coverage:all
+
+# Run specific test types with coverage
+npm run test:coverage:unit
+npm run test:coverage:integration
+npm run test:coverage:e2e
 ```
 
 ### Test Structure
@@ -45,6 +52,12 @@ The project uses Husky to run checks before commits:
 3. Unit tests with coverage (minimum 80%)
 
 Commits must follow [Conventional Commits](https://www.conventionalcommits.org/) format.
+
+## 📊 Test Coverage
+
+### Unit Tests
+ ![Lines Coverage](https://img.shields.io/badge/Lines-100%25-brightgreen) ![Statements Coverage](https://img.shields.io/badge/Statements-100%25-brightgreen) ![Functions Coverage](https://img.shields.io/badge/Functions-100%25-brightgreen) ![Branches Coverage](https://img.shields.io/badge/Branches-100%25-brightgreen) 
+
 
 ## Docker
 

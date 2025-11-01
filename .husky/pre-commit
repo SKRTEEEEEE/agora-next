@@ -7,6 +7,6 @@ echo "🧪 Running type tests (no server required)..."
 npx tsc --noEmit
 
 echo "🧪 Running unit tests..."
-npm run test:unit
+npm run test:coverage:unit
 
 echo "✅ All pre-commit checks passed!"
