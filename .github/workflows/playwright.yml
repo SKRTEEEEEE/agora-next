@@ -19,7 +19,7 @@ jobs:
     - name: Run unit tests with coverage
       run: npm run test:coverage:unit
     - name: Upload coverage reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       if: always()
       with:
         name: coverage-unit
@@ -54,7 +54,7 @@ jobs:
       run: npm run test:integration
     - name: Run E2E tests
       run: npm run test:e2e
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
