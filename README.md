@@ -53,6 +53,12 @@ The project uses Husky to run checks before commits:
 
 Commits must follow [Conventional Commits](https://www.conventionalcommits.org/) format.
 
+## 📊 Test Coverage
+
+### Unit Tests
+ ![Lines Coverage](https://img.shields.io/badge/Lines-100%25-brightgreen) ![Statements Coverage](https://img.shields.io/badge/Statements-100%25-brightgreen) ![Functions Coverage](https://img.shields.io/badge/Functions-100%25-brightgreen) ![Branches Coverage](https://img.shields.io/badge/Branches-100%25-brightgreen) 
+
+
 ## Docker
 
 Build and run the application with Docker:
