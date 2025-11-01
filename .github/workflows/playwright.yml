@@ -23,7 +23,7 @@ jobs:
       if: always()
       with:
         name: coverage-unit
-        path: docs/coverage-reports/
+        path: docs/coverage-reports/unit/
         retention-days: 30
 
   integration-e2e-tests:
@@ -42,21 +42,99 @@ jobs:
       run: npx playwright install --with-deps
     - name: Build project
       run: npm run build
-    - name: Start Next.js server
-      run: npm run start &
+    - name: Prepare standalone server
+      run: |
+        # Copy static files to standalone directory
+        cp -r public .next/standalone/public || true
+        cp -r .next/static .next/standalone/.next/static || true
+    - name: Start Next.js standalone server
+      run: |
+        cd .next/standalone
+        node server.js &
+        echo $! > server.pid
+        cd ../..
       env:
         NODE_ENV: production
         NEXT_PUBLIC_API_MOCKING: "enabled"
         PORT: 3000
+        HOSTNAME: "0.0.0.0"
     - name: Wait for server to be ready
       run: npx wait-on http://localhost:3000 -t 60000
-    - name: Run integration tests
-      run: npm run test:integration
-    - name: Run E2E tests
-      run: npm run test:e2e
-    - uses: actions/upload-artifact@v4
+    - name: Run integration tests with coverage
+      run: npm run test:coverage:integration
+    - name: Run E2E tests with coverage
+      run: npm run test:coverage:e2e
+    - name: Stop server
+      if: always()
+      run: |
+        if [ -f .next/standalone/server.pid ]; then
+          kill $(cat .next/standalone/server.pid) || true
+        fi
+    - name: Upload coverage reports (integration)
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-integration
+        path: docs/coverage-reports/integration/
+        retention-days: 30
+    - name: Upload coverage reports (e2e)
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-e2e
+        path: docs/coverage-reports/e2e/
+        retention-days: 30
+    - name: Upload test reports
+      uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
         path: docs/test-results/
         retention-days: 30
+
+  update-coverage-badges:
+    name: Update Coverage Badges
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-e2e-tests]
+    if: always() && github.event_name == 'pull_request'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        ref: ${{ github.head_ref }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Download unit coverage
+      uses: actions/download-artifact@v4
+      continue-on-error: true
+      with:
+        name: coverage-unit
+        path: docs/coverage-reports/unit/
+    - name: Download integration coverage
+      uses: actions/download-artifact@v4
+      continue-on-error: true
+      with:
+        name: coverage-integration
+        path: docs/coverage-reports/integration/
+    - name: Download e2e coverage
+      uses: actions/download-artifact@v4
+      continue-on-error: true
+      with:
+        name: coverage-e2e
+        path: docs/coverage-reports/e2e/
+    - name: Update README with coverage badges
+      run: node .github/scripts/update-coverage-badges.js
+    - name: Commit coverage badges
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add README.md
+        git diff --staged --quiet || git commit -m "docs: update test coverage badges [skip ci]"
+    - name: Push changes
+      run: git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
