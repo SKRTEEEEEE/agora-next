@@ -88,19 +88,19 @@ jobs:
       with:
         node-version: lts/*
     - name: Download unit coverage
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v6
       continue-on-error: true
       with:
         name: coverage-unit
         path: docs/coverage-reports/unit/
     - name: Download integration coverage
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v6
       continue-on-error: true
       with:
         name: coverage-integration
         path: docs/coverage-reports/integration/
     - name: Download e2e coverage
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v6
       continue-on-error: true
       with:
         name: coverage-e2e
