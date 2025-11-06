@@ -55,6 +55,7 @@ The project uses Husky to run checks before commits:
 
 Commits must follow [Conventional Commits](https://www.conventionalcommits.org/) format.
 
+
 ## 📊 Test Coverage
 
 ### Unit Tests
