@@ -14,7 +14,9 @@ Then, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3002](http://localhost:3002) with your browser to see the result.
+
+> **Note:** This application runs on port 3002 by default to avoid conflicts with other services in the ecosystem.
 
 ## Testing
 
@@ -65,17 +67,17 @@ Build and run the application with Docker:
 
 ```bash
 # Build the image
-docker build -t profile-next .
+docker build -t agora-next .
 
 # Run the container
-docker run -p 3000:3000 profile-next
+docker run -p 3002:3002 agora-next
 ```
 
 ## Scripts
 
-- `npm run dev` - Start development server
+- `npm run dev` - Start development server (on port 3002)
 - `npm run build` - Build for production
-- `npm start` - Start production server
+- `npm start` - Start production server (on port 3002)
 - `npm run lint` - Run ESLint
 - `npm run type-check` - Run TypeScript type checking
 - `npm test` - Run unit tests
