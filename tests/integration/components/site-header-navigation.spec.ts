@@ -2,11 +2,11 @@ import { test, expect } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
 
+const appsMenuPath = path.join(process.cwd(), 'src', 'components', 'site-header', 'apps-menu.tsx');
+
 test.describe('SiteHeader Apps Dropdown Navigation', () => {
   test('should contain Apps dropdown menu in navigation', () => {
-    // Verificar que el SiteHeader contiene el menú desplegable de Apps
-    const siteHeaderPath = path.join(process.cwd(), 'src', 'components', 'site-header', 'site-header.tsx');
-    const fileContent = fs.readFileSync(siteHeaderPath, 'utf-8');
+    const fileContent = fs.readFileSync(appsMenuPath, 'utf-8');
     
     // Verificar que importa NavigationMenu
     expect(fileContent).toContain('NavigationMenu');
@@ -23,8 +23,7 @@ test.describe('SiteHeader Apps Dropdown Navigation', () => {
     //   3. Dashboard Admin (profile-skrt.vercel.app/es/admin)
     //   4. Desarrollador (dev.desarrollador.tech)
     
-    const siteHeaderPath = path.join(process.cwd(), 'src', 'components', 'site-header', 'site-header.tsx');
-    const fileContent = fs.readFileSync(siteHeaderPath, 'utf-8');
+    const fileContent = fs.readFileSync(appsMenuPath, 'utf-8');
     
     expect(fileContent).toContain('Apps');
     expect(fileContent).toContain('NavigationMenuItem');
@@ -33,8 +32,7 @@ test.describe('SiteHeader Apps Dropdown Navigation', () => {
 
   test('should have navigation to desarrollador.tech as main link', () => {
     // El elemento principal debe llevar a desarrollador.tech (/)
-    const siteHeaderPath = path.join(process.cwd(), 'src', 'components', 'site-header', 'site-header.tsx');
-    const fileContent = fs.readFileSync(siteHeaderPath, 'utf-8');
+    const fileContent = fs.readFileSync(appsMenuPath, 'utf-8');
     
     expect(fileContent).toContain('desarrollador.tech');
   });
@@ -43,8 +41,7 @@ test.describe('SiteHeader Apps Dropdown Navigation', () => {
     // Debe tener enlaces externos a:
     // - https://profile-skrt.vercel.app/es/academia
     // - https://profile-skrt.vercel.app/es/admin
-    const siteHeaderPath = path.join(process.cwd(), 'src', 'components', 'site-header', 'site-header.tsx');
-    const fileContent = fs.readFileSync(siteHeaderPath, 'utf-8');
+    const fileContent = fs.readFileSync(appsMenuPath, 'utf-8');
     
     expect(fileContent).toContain('profile-skrt.vercel.app/es/academia');
     expect(fileContent).toContain('profile-skrt.vercel.app/es/admin');
@@ -52,8 +49,7 @@ test.describe('SiteHeader Apps Dropdown Navigation', () => {
 
   test('should have link to dev.desarrollador.tech', () => {
     // Debe tener un enlace a dev.desarrollador.tech
-    const siteHeaderPath = path.join(process.cwd(), 'src', 'components', 'site-header', 'site-header.tsx');
-    const fileContent = fs.readFileSync(siteHeaderPath, 'utf-8');
+    const fileContent = fs.readFileSync(appsMenuPath, 'utf-8');
     
     expect(fileContent).toContain('dev.desarrollador.tech');
   });

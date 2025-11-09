@@ -9,6 +9,7 @@ import { Wallet } from "lucide-react";
 import { ThirdwebClientConfig } from "@/core/infrastructure/connectors/thirdweb-auth";
 import { useEffect, useState } from "react";
 import UserFormDialog from "./site-header/user-form-dialog";
+import { cn } from "@/lib/utils";
 
 const wallets = [
     inAppWallet({
@@ -90,10 +91,14 @@ type User = {
 
 export const CustomConnectButton = ({
   connectButtonLabel="Iniciar sesión",
-  initialUser = null
+  initialUser = null,
+  wrapperClassName,
+  showUserFormButton = true,
 }:{
   connectButtonLabel?:string,
-  initialUser?: User | null
+  initialUser?: User | null,
+  wrapperClassName?: string,
+  showUserFormButton?: boolean
 }) =>{
     const [img, setImg] = useState<string|undefined>(initialUser?.img || undefined)
     const [user, setUser] = useState<User | null>(initialUser)
@@ -119,8 +124,8 @@ export const CustomConnectButton = ({
     }, [initialUser])
 
     return(
-      <div suppressHydrationWarning className="flex gap-2 items-center">
-        {isLogged && user && (
+      <div suppressHydrationWarning className={cn("flex gap-2 items-center", wrapperClassName)}>
+        {showUserFormButton && isLogged && user && (
           <UserFormDialog 
             user={user}
             buttonLabelVariant="ghost"
