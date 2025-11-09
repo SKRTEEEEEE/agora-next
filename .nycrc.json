@@ -36,6 +36,6 @@
     "lcov",
     "json-summary"
   ],
-  "report-dir": "./docs/coverage-reports",
+  "report-dir": "./docs/coverage",
   "temp-dir": "./.nyc_output"
 }

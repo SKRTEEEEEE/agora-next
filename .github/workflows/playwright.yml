@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v5
+    - name: Reset unit artifacts 🧹
+      run: |
+        rm -rf docs/test-results docs/coverage docs/coverage-reports .nyc_output || true
+        mkdir -p docs/test-results docs/coverage docs/coverage-reports
     - uses: actions/setup-node@v6
       with:
         node-version: lts/*
@@ -18,12 +22,32 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run unit tests with coverage
       run: npm run test:coverage:unit
+    - name: Prepare unit coverage report
+      run: |
+        rm -rf docs/coverage-reports/unit
+        mkdir -p docs/coverage-reports/unit
+        cp -R docs/coverage/. docs/coverage-reports/unit/
     - name: Upload coverage reports
       uses: actions/upload-artifact@v5
       if: always()
       with:
         name: coverage-unit
         path: docs/coverage-reports/unit/
+        retention-days: 30
+    - name: Archive unit NYC output
+      if: always()
+      run: |
+        if [ -d .nyc_output ]; then
+          tar -czf nyc-output-unit.tgz .nyc_output
+        fi
+    - uses: actions/upload-artifact@v5
+      if: always()
+      with:
+        name: nyc-output-unit
+        path: nyc-output-unit.tgz
+        retention-days: 7
+    - name: Clean unit coverage workspace
+      run: rm -rf docs/coverage docs/coverage-reports/unit .nyc_output nyc-output-unit.tgz
         retention-days: 30
 
   integration-e2e-tests:
@@ -33,6 +57,10 @@ jobs:
     needs: unit-tests
     steps:
     - uses: actions/checkout@v5
+    - name: Reset integration/e2e artifacts 🧹
+      run: |
+        rm -rf docs/test-results docs/coverage docs/coverage-reports .nyc_output || true
+        mkdir -p docs/test-results docs/coverage docs/coverage-reports
     - uses: actions/setup-node@v6
       with:
         node-version: lts/*
@@ -60,16 +88,47 @@ jobs:
         HOSTNAME: "0.0.0.0"
     - name: Wait for server to be ready
       run: npx wait-on http://localhost:3000 -t 60000
-    - name: Run integration tests
-      run: npm run test:integration
-    - name: Run E2E tests
-      run: npm run test:e2e
+    - name: Run integration tests with coverage
+      run: npm run test:coverage:integration
+    - name: Prepare integration coverage report
+      run: |
+        rm -rf docs/coverage-reports/integration
+        mkdir -p docs/coverage-reports/integration
+        cp -R docs/coverage/. docs/coverage-reports/integration/
+        rm -rf docs/coverage .nyc_output
+    - name: Run E2E tests with coverage
+      run: npm run test:coverage:e2e
+    - name: Prepare E2E coverage report
+      run: |
+        rm -rf docs/coverage-reports/e2e
+        mkdir -p docs/coverage-reports/e2e
+        cp -R docs/coverage/. docs/coverage-reports/e2e/
+        rm -rf docs/coverage .nyc_output
     - uses: actions/upload-artifact@v5
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
         path: docs/test-results/
         retention-days: 30
+    - uses: actions/upload-artifact@v5
+      if: always()
+      with:
+        name: coverage-integration
+        path: docs/coverage-reports/integration/
+        retention-days: 30
+    - uses: actions/upload-artifact@v5
+      if: always()
+      with:
+        name: coverage-e2e
+        path: docs/coverage-reports/e2e/
+        retention-days: 30
+    - name: Stop standalone server ⛔
+      if: always()
+      run: |
+        if [ -f .next/standalone/server.pid ]; then
+          kill $(cat .next/standalone/server.pid) || true
+          rm -f .next/standalone/server.pid
+        fi
 
   update-coverage-badges:
     name: Update Coverage Badges
@@ -84,6 +143,10 @@ jobs:
       with:
         ref: ${{ github.head_ref }}
         token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Reset coverage doc folders 🧹
+      run: |
+        rm -rf docs/coverage-reports || true
+        mkdir -p docs/coverage-reports
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
