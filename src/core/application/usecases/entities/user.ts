@@ -2,7 +2,7 @@ import { VerifyLoginPayloadParams } from "thirdweb/auth";
 import { ApiUserRepository, UserUpdateData } from "@/core/infrastructure/api/user.repository";
 import { RoleType } from "@/core/domain/entities/role.type";
 
-const apiUserRepository = new ApiUserRepository()
+const apiUserRepository = new ApiUserRepository(process.env.NEXT_PUBLIC_BACKEND_URL);
 
 export const apiReadUserByIdUC = async (id: string) => {
     return await apiUserRepository.readById(id)

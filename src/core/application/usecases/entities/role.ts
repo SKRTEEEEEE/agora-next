@@ -1,7 +1,7 @@
 import { RoleBase } from "@/core/domain/entities/role.d";
 import { ApiRoleRepository } from "@/core/infrastructure/api/role.repository";
 
-const apiRoleRepository = new ApiRoleRepository()
+const apiRoleRepository = new ApiRoleRepository(process.env.NEXT_PUBLIC_BACKEND_URL);
 
 export const apiCreateRoleUC = async (newRole: Omit<RoleBase, "id">) => {
     return await apiRoleRepository.create(newRole)
