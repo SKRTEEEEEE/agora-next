@@ -5,7 +5,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/routing";
 import { cn, sortPosts } from "@/lib/utils";
 import { Metadata } from "next";
-import { userInCookiesUC } from "@/core/presentation/controllers/user";
+import { userInCookiesUC } from "@log-ui/core/presentation/controllers/user";
 
 const routesConfig = {
   academia: {

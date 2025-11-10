@@ -1,4 +1,4 @@
-import { ourFileRouter } from "@/core/infrastructure/connectors/uploadthing-st";
+import { ourFileRouter } from "@log-ui/core/infrastructure/connectors/uploadthing-st";
 import { createRouteHandler } from "uploadthing/next";
 
 // Export routes for Next App Router

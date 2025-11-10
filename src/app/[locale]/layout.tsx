@@ -6,8 +6,8 @@ import { Inter as FontSans } from "next/font/google";
 import { routing } from '@/lib/i18n/routing';
 import { Toaster } from '@/components/ui/sonner';
 import { ReactNode } from 'react';
-import { ThemeProvider } from '@/components/theme-provider';
-import { SiteHeader } from '@/components/site-header/site-header';
+import { ThemeProvider } from '@log-ui/components/theme-provider';
+import { SiteHeader } from '@log-ui/components/site-header/site-header';
 import { ThirdwebProvider } from "thirdweb/react";
 
 

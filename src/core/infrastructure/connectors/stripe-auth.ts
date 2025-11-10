@@ -1,4 +1,4 @@
-import { SetEnvError } from "@/core/domain/flows/domain.error";
+import { SetEnvError } from "@log-ui/core/domain/flows/domain.error";
 import Stripe from "stripe";
 
 export abstract class StripeConnector {
@@ -18,7 +18,7 @@ export abstract class StripeConnector {
     }
     protected get stripe(){
         if (!this._stripe) {
-            throw new SetEnvError("stripe api", StripeConnector)
+            throw new SetEnvError(StripeConnector, "stripe")
         }
         return this._stripe
     }
