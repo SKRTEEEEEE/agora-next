@@ -12,10 +12,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { plansBasicInfo } from "@/lib/data"
-import { userInCookiesUC } from "@/core/presentation/controllers/user"
-import { RoleType } from "@/core/domain/entities/role.type"
+import { userInCookiesUC } from "@log-ui/core/presentation/controllers/user"
+import { RoleType } from "@log-ui/core/domain/entities/role.type"
 import { generatePaymentLink } from "@/lib/utils"
-import { CustomConnectButton } from "../custom-connect-button"
+import { CustomConnectButton } from "@log-ui/components/custom-connect-button"
 
 function FeatureList({ features }: { features: string[] }) {
   return (

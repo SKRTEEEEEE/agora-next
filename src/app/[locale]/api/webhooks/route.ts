@@ -1,8 +1,8 @@
 import { constructEventWebhookUC, retrieveSessionUC, deleteCustomerUC, retrieveSubscriptionUC } from "@/core/application/usecases/services/pay";
 import { NextRequest, NextResponse } from "next/server";
-import { apiReadUserByIdUC } from "@/core/application/usecases/entities/user";
-import { apiCreateRoleUC, apiDeleteRolesUC, apiUpdateRoleByIdUC, apiReadRolesUC } from "@/core/application/usecases/entities/role";
-import { RoleType } from "@/core/domain/entities/role.type";
+import { apiReadUserByIdUC } from "@log-ui/core/application/usecases/entities/user";
+import { apiCreateRoleUC, apiDeleteRolesUC, apiUpdateRoleByIdUC, apiReadRolesUC } from "@log-ui/core/application/usecases/entities/role";
+import { RoleType } from "@log-ui/core/domain/entities/role.type";
 
 export async function POST(req: NextRequest) {
   const payload = await req.text()
