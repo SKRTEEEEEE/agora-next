@@ -46,9 +46,6 @@ jobs:
         name: nyc-output-unit
         path: nyc-output-unit.tgz
         retention-days: 7
-    - name: Clean unit coverage workspace
-      run: rm -rf docs/coverage docs/coverage-reports/unit .nyc_output nyc-output-unit.tgz
-        retention-days: 30
 
   integration-e2e-tests:
     name: Integration & E2E Tests (With Server)
