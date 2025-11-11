@@ -1,7 +1,9 @@
 name: 👁️‍🗨️ Playwright Tests
 on:
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, buildn ]
+  push:
+    branches: [ main ]
 jobs:
   unit-tests:
     name: Unit Tests (No Server)
