@@ -1,7 +1,8 @@
 import {defineRouting} from 'next-intl/routing';
 import {createNavigation} from 'next-intl/navigation';
+import { pathnames } from './pathnames';
 
-export type AllPathnamesType = keyof typeof routing.pathnames;
+export type AllPathnamesType = keyof typeof pathnames;
 
 
 export const routing = defineRouting({
@@ -12,39 +13,7 @@ export const routing = defineRouting({
   defaultLocale: 'en',
 
   // List of rutes translation
-  pathnames: {
-    "/":"/",
-    "/ejercicios": {
-      en: "/exercises",
-      de: "/ubungen",
-      es: "/ejercicios",
-      ca: "/exercicis"
-    },
-    "/ejercicios/[...slug]": {
-      en: "/exercises/[...slug]",
-      de: "/ubungen/[...slug]",
-      es: "/ejercicios/[...slug]",
-      ca: "/exercicis/[...slug]"
-    },
-    "/tarifas": {
-      en: "/pricing",
-      de: "/preise",
-      es: "/tarifas",
-      ca: "/tarifes"
-    },
-    "/temas-ejercicios": {
-      en: "/exercise-topics",
-      de: "/ubungsthemen",
-      es: "/temas-ejercicios",
-      ca: "/temes-exercicis"
-    },
-    "/temas-ejercicios/[tema]": {
-      en: "/exercise-topics/[tema]",
-      de: "/ubungsthemen/[tema]",
-      es: "/temas-ejercicios/[tema]",
-      ca: "/temes-exercicis/[tema]"
-    },
-  }
+  pathnames
 });
  
 // Lightweight wrappers around Next.js' navigation APIs
