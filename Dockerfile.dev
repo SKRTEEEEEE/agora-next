@@ -1,0 +1,32 @@
+# Dockerfile for Next.js development with hot reload
+FROM node:22-alpine AS base
+
+# Install dependencies only when needed
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# Install dependencies based on the preferred package manager
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# Development image with hot reload
+FROM base AS development
+WORKDIR /app
+
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Copy node_modules from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+
+# Copy all source files
+COPY . .
+
+EXPOSE 3002
+
+ENV PORT=3002
+ENV HOSTNAME="0.0.0.0"
+
+# Run dev server with turbopack for faster builds
+CMD ["npm", "run", "dev"]
