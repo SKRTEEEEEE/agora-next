@@ -26,18 +26,6 @@ export async function generateMetadata(props: TagPageProps): Promise<Metadata> {
     }
 }
 
-export const generateStaticParams = () =>{
-    const tags = getAllTags(ejercicios);
-    const paths = Object.keys(tags).map(tag=> ({tema:slug(tag)}))
-    return paths
-}
-
-// Prevent dynamic routes in production - only generate paths from generateStaticParams
-export const dynamicParams = false;
-
-// Force static rendering to prevent DYNAMIC_SERVER_USAGE error in production
-export const dynamic = 'force-static';
-
 export default async function TemaPage(props: TagPageProps) {
     const params = await props.params;
     const {tema} = params;
