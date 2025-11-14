@@ -23,7 +23,8 @@ const eslintConfig = [
   },
   {
     rules: {
-      "@typescript-eslint/no-unsafe-function-type": "warn",
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unsafe-function-type': 'warn',
     },
   },
 ];
