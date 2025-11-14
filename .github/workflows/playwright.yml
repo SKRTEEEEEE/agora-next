@@ -84,7 +84,44 @@ jobs:
         PORT: 3000
         HOSTNAME: "0.0.0.0"
     - name: Wait for server to be ready
-      run: npx wait-on http://localhost:3000 -t 60000
+      run: |
+        echo "⏳ Waiting for Next.js to be ready..."
+        
+        # Función para verificar si el servidor responde correctamente
+        check_server() {
+          local url=$1
+          local response=$(curl -s -o /dev/null -w "%{http_code}" "$url" 2>/dev/null)
+          echo $response
+        }
+        
+        # Esperar a que el servidor responda (acepta 200, 307, 404)
+        # 307 = redirect (expected con next-intl), 404 = server ready pero ruta no encontrada
+        MAX_ATTEMPTS=60
+        for i in $(seq 1 $MAX_ATTEMPTS); do
+          STATUS=$(check_server "http://localhost:3000/en")
+          
+          if [ "$STATUS" = "200" ] || [ "$STATUS" = "307" ] || [ "$STATUS" = "404" ]; then
+            echo "✅ Server is ready (status: $STATUS) on attempt $i"
+            break
+          elif [ "$STATUS" = "500" ]; then
+            echo "⚠️ Server responding but with 500 error (attempt $i/$MAX_ATTEMPTS)"
+            if [ $i -ge 10 ]; then
+              echo "❌ Server keeps returning 500 errors. Check your app code!"
+              exit 1
+            fi
+          else
+            echo "⏳ Waiting for server... (attempt $i/$MAX_ATTEMPTS, status: $STATUS)"
+          fi
+          
+          sleep 2
+          
+          if [ $i -eq $MAX_ATTEMPTS ]; then
+            echo "❌ Server failed to start properly after $MAX_ATTEMPTS attempts"
+            exit 1
+          fi
+        done
+        
+        echo "🎉 Server is ready for testing!"
     - name: Run integration tests with coverage
       run: npm run test:coverage:integration
     - name: Prepare integration coverage report
