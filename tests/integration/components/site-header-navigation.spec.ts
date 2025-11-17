@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const appsMenuPath = path.join(process.cwd(), 'src', 'components', 'site-header', 'apps-menu.tsx');
+const appsMenuPath = path.join(process.cwd(), 'log-ui-ts', 'components', 'site-header', 'apps-menu.tsx');
 
 test.describe('SiteHeader Apps Dropdown Navigation', () => {
   test('should contain Apps dropdown menu in navigation', () => {

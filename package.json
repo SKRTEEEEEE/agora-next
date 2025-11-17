@@ -16,7 +16,7 @@
     "test:e2e": "playwright test --project=e2e",
     "test:coverage:e2e": "nyc --report-dir=./docs/coverage playwright test --project=e2e",
     "test:all": "playwright test",
-    "test:coverage:all": "nyc playwright test",
+    "test:coverage": "nyc playwright test",
     "test:prod": "cross-env TEST_ENV=production npx playwright test",
     "coverage": "nyc playwright test",
     "lh:home": "npx lighthouse http://localhost:3000 --output=json --output=html --output-path=./docs/lighthouse-reports/home.html --chrome-flags='--headless' --no-enable-error-reporting",
