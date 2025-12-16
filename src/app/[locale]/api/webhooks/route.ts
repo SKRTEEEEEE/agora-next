@@ -2,7 +2,7 @@ import { constructEventWebhookUC, retrieveSessionUC, deleteCustomerUC, retrieveS
 import { NextRequest, NextResponse } from "next/server";
 import { apiReadUserByIdUC } from "@log-ui/core/application/usecases/entities/user";
 import { apiCreateRoleUC, apiDeleteRolesUC, apiUpdateRoleByIdUC, apiReadRolesUC } from "@log-ui/core/application/usecases/entities/role";
-import { RoleType } from "@log-ui/core/domain/entities/role.type";
+import { RoleType } from "@skrteeeeee/profile-domain";
 
 export async function POST(req: NextRequest) {
   const payload = await req.text()

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog"
 import { plansBasicInfo } from "@/lib/data"
 import { userInCookiesUC } from "@log-ui/core/presentation/controllers/user"
-import { RoleType } from "@log-ui/core/domain/entities/role.type"
+import { RoleType } from "@skrteeeeee/profile-domain"
 import { generatePaymentLink } from "@/lib/utils"
 import { CustomConnectButton } from "@log-ui/components/custom-connect-button"
 
