@@ -26,7 +26,7 @@ jobs:
 
       - name: Configure NPM for GitHub Packages 🔑
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
           echo "@skrteeeeee:registry=https://npm.pkg.github.com" >> ~/.npmrc
 
       - name: Install dependencies 📩
