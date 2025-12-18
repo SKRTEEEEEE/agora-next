@@ -12,11 +12,7 @@
       "title": "Ejercicios destacados"
     }
   },
-  "nav": {
-    "exercises": "Ejercicios",
-    "pricing": "Tarifas",
-    "topics": "Temas"
-  },
+
   "exercises": {
     "title": "Ejercicios",
     "description": "Ejercicios prácticos para aprender desarrollo web",

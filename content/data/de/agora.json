@@ -12,11 +12,7 @@
       "title": "Empfohlene Übungen"
     }
   },
-  "nav": {
-    "exercises": "Übungen",
-    "pricing": "Preise",
-    "topics": "Themen"
-  },
+
   "exercises": {
     "title": "Übungen",
     "description": "Praktische Übungen zum Erlernen der Webentwicklung",

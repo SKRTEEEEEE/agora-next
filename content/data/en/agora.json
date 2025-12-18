@@ -12,11 +12,7 @@
       "title": "Featured exercises"
     }
   },
-  "nav": {
-    "exercises": "Exercises",
-    "pricing": "Pricing",
-    "topics": "Topics"
-  },
+
   "exercises": {
     "title": "Exercises",
     "description": "Practical exercises to learn web development",

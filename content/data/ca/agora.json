@@ -12,11 +12,7 @@
       "title": "Exercicis destacats"
     }
   },
-  "nav": {
-    "exercises": "Exercicis",
-    "pricing": "Tarifes",
-    "topics": "Temes"
-  },
+
   "exercises": {
     "title": "Exercicis",
     "description": "Exercicis pràctics per aprendre desenvolupament web",

@@ -26,6 +26,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post1",
         slugAsParams: "post1",
+        locale: "es",
         title: "Post 1",
         date: "2024-01-01",
         published: true,
@@ -34,6 +35,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post2",
         slugAsParams: "post2",
+        locale: "es",
         title: "Post 2",
         date: "2024-03-01",
         published: true,
@@ -42,6 +44,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post3",
         slugAsParams: "post3",
+        locale: "es",
         title: "Post 3",
         date: "2024-02-01",
         published: true,
@@ -79,8 +82,8 @@ test.describe("Academia Utils", () => {
 
     test("should handle posts with equal dates (coverage for return 0)", () => {
       const equalDatePosts: Ejercicio[] = [
-        { slug: "/a", slugAsParams: "a", title: "A", date: "2024-01-01", published: true, body: "" },
-        { slug: "/b", slugAsParams: "b", title: "B", date: "2024-01-01", published: true, body: "" }
+        { slug: "/a", slugAsParams: "a", locale: "es", title: "A", date: "2024-01-01", published: true, body: "" },
+        { slug: "/b", slugAsParams: "b", locale: "es", title: "B", date: "2024-01-01", published: true, body: "" }
       ];
       const sorted = sortPosts([...equalDatePosts]);
       expect(sorted.length).toBe(2);
@@ -93,6 +96,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post1",
         slugAsParams: "post1",
+        locale: "es",
         title: "Post 1",
         date: "2024-01-01",
         published: true,
@@ -102,6 +106,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post2",
         slugAsParams: "post2",
+        locale: "es",
         title: "Post 2",
         date: "2024-02-01",
         published: true,
@@ -111,6 +116,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post3",
         slugAsParams: "post3",
+        locale: "es",
         title: "Post 3",
         date: "2024-03-01",
         published: false,
@@ -120,6 +126,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post4",
         slugAsParams: "post4",
+        locale: "es",
         title: "Post 4",
         date: "2024-04-01",
         published: true,
@@ -145,6 +152,7 @@ test.describe("Academia Utils", () => {
         {
           slug: "/post1",
           slugAsParams: "post1",
+          locale: "es",
           title: "Post 1",
           date: "2024-01-01",
           published: true,
@@ -204,6 +212,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post1",
         slugAsParams: "post1",
+        locale: "es",
         title: "Post 1",
         date: "2024-01-01",
         published: true,
@@ -213,6 +222,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post2",
         slugAsParams: "post2",
+        locale: "es",
         title: "Post 2",
         date: "2024-02-01",
         published: true,
@@ -222,6 +232,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post3",
         slugAsParams: "post3",
+        locale: "es",
         title: "Post 3",
         date: "2024-03-01",
         published: true,
@@ -231,6 +242,7 @@ test.describe("Academia Utils", () => {
       {
         slug: "/post4",
         slugAsParams: "post4",
+        locale: "es",
         title: "Post 4",
         date: "2024-04-01",
         published: true,
@@ -250,6 +262,7 @@ test.describe("Academia Utils", () => {
         {
           slug: "/post1",
           slugAsParams: "post1",
+          locale: "es",
           title: "Post 1",
           date: "2024-01-01",
           published: true,
