@@ -1,0 +1,75 @@
+{
+  "home": {
+    "hero": {
+      "title": "Academia de Desarrollo Web",
+      "subtitle": "Aprende desarrollo web con ejercicios prácticos y tutoriales"
+    },
+    "cta": {
+      "exercises": "Ver ejercicios",
+      "pricing": "Tarifas"
+    },
+    "featured": {
+      "title": "Ejercicios destacados"
+    }
+  },
+  "nav": {
+    "exercises": "Ejercicios",
+    "pricing": "Tarifas",
+    "topics": "Temas"
+  },
+  "exercises": {
+    "title": "Ejercicios",
+    "description": "Ejercicios prácticos para aprender desarrollo web",
+    "emptyState": "No hay ejercicios disponibles",
+    "readMore": "Leer más",
+    "published": "Publicado el",
+    "tags": "Etiquetas"
+  },
+  "topics": {
+    "title": "Temas de Ejercicios",
+    "subtitle": "Ejercicios para potenciar tu experiencia dev.",
+    "description": "Ejercicios con de {topic}"
+  },
+  "pricing": {
+    "title": "Planes de Suscripción",
+    "plans": {
+      "free": {
+        "name": "Gratuito",
+        "description": "Perfecto para empezar",
+        "price": "0",
+        "currency": "€",
+        "period": "mes",
+        "cta": "Comenzar gratis"
+      },
+      "student": {
+        "name": "Estudiante",
+        "description": "Para estudiantes comprometidos",
+        "price": "9.99",
+        "currency": "€",
+        "period": "mes",
+        "cta": "Suscribirse"
+      },
+      "pro": {
+        "name": "Estudiante Pro",
+        "description": "Para profesionales avanzados",
+        "price": "19.99",
+        "currency": "€",
+        "period": "mes",
+        "cta": "Suscribirse"
+      }
+    },
+    "comparison": {
+      "title": "Comparación de planes",
+      "features": "Características"
+    }
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "signUp": "Registrarse"
+  },
+  "metadata": {
+    "author": "Agora Next",
+    "exercises": "Academia - Ejercicios"
+  }
+}

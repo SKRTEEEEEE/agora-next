@@ -1,0 +1,53 @@
+---
+title: Vegem què podem fer amb rehype pretty code
+description: Ressaltat de sintaxi, números de línia, ressaltat de línies, ressaltat de paraules
+date: 2024-03-04
+tags: ["code", "rehype pretty", "mdx"]
+published: true
+---
+
+[`rehype-pretty-code`](https://github.com/atomiks/rehype-pretty-code) és un plugin de Rehype impulsat pel
+ressaltador de sintaxi [`shiki`](https://github.com/shikijs/shiki) que proporciona blocs de codi bonics per a Markdown o MDX.
+
+## Ressaltat de Qualitat d'Editor
+
+Gaudeix de la precisió i granularitat del motor de ressaltat de sintaxi de VS Code i
+la popularitat del seu ecosistema de temes — utilitza qualsevol tema de VS Code que vulguis!
+
+## Números de Línia i Ressaltat de Línies
+
+Crida l'atenció sobre una línia de codi particular.
+
+```js {4} showLineNumbers
+import { useFloating } from "@floating-ui/react";
+
+function MyComponent() {
+  const { refs, floatingStyles } = useFloating();
+
+  return (
+    <>
+      <div ref={refs.setReference} />
+      <div ref={refs.setFloating} style={floatingStyles} />
+    </>
+  );
+}
+```
+
+## Ressaltat de Paraules
+
+Crida l'atenció sobre una paraula o sèrie de caràcters particular.
+
+```js /floatingStyles/
+import { useFloating } from "@floating-ui/react";
+
+function MyComponent() {
+  const { refs, floatingStyles } = useFloating();
+
+  return (
+    <>
+      <div ref={refs.setReference} />
+      <div ref={refs.setFloating} style={floatingStyles} />
+    </>
+  );
+}
+```

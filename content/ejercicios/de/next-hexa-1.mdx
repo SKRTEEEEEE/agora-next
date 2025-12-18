@@ -1,0 +1,37 @@
+---
+title: Next.js hexagonale Übung 1
+description: Praktische Übung zur hexagonalen Architektur mit Next.js mit App-Router
+date: 2024-08-30
+tags: ["nextjs", "hexagonal", "frontend"]
+published: true
+---
+
+# Next.js hexagonal: Übung 1
+
+Einfache Übung zur hexagonalen Architektur mit Next.js +14 mit App-Router und tailwindcss. Frontend-fokussiert.
+
+## Prozess
+
+### 1. App-Struktur
+#### `npx create-next-app@latest`
+- Initialisieren Sie die Anwendung mit dem Next.js-Befehl unter Verwendung des Ordners "src".
+#### Hexagonale Struktur
+- Definieren Sie die Ordner einer hexagonalen Architektur in einem Ordner namens "core".
+#### Domain- und App-Erstellung
+- Für diese Anwendung müssen wir diese Regeln erfüllen:
+  - Benutzer mit: id (eindeutig, Sie können sie mit Datum + Name generieren), Name, roleId (id, die es mit einer anderen Tabelle mit seiner Rolle verknüpft, die möglicherweise nicht existiert, was bedeuten würde, dass es ein normaler Benutzer ist), createdAt (Erstellungs-Zeitstempel) und updatedAt (Bearbeitungs-Zeitstempel).
+  - Rollen mit: id (eindeutig, Sie können sie mit Datum + Name generieren), Name (Benutzername), permissions (Berechtigungstyp, definiert in einem enum, mit Optionen: "ADMIN", "STUDENT", "STUDENT_PRO"), createdAt (Erstellungs-Zeitstempel) und updatedAt (Bearbeitungs-Zeitstempel).
+
+### 2. Benutzer
+#### `InMemoryUserRepository`, Benutzer "Erstellen" und "Lesen"
+- Erstellen Sie `InMemoryUserRepository`, falls noch nicht geschehen.
+- In "actions" erstellen wir Funktionen für "Create" Benutzer unter Verwendung von SSR.
+- Auf unserer Seite implementieren wir eine Komponente mit einem Formular zum Erstellen des Benutzers.
+- Wir machen dasselbe mit "Read", das alle Benutzer zurückgeben sollte.
+
+## Was Sie lernen werden
+
+- Grundlagen der hexagonalen Architektur
+- Next.js App-Router-Muster
+- TypeScript Best Practices
+- Domain-driven Design-Prinzipien

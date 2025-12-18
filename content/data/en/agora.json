@@ -1,0 +1,75 @@
+{
+  "home": {
+    "hero": {
+      "title": "Web Development Academy",
+      "subtitle": "Learn web development with practical exercises and tutorials"
+    },
+    "cta": {
+      "exercises": "View exercises",
+      "pricing": "Pricing"
+    },
+    "featured": {
+      "title": "Featured exercises"
+    }
+  },
+  "nav": {
+    "exercises": "Exercises",
+    "pricing": "Pricing",
+    "topics": "Topics"
+  },
+  "exercises": {
+    "title": "Exercises",
+    "description": "Practical exercises to learn web development",
+    "emptyState": "No exercises available",
+    "readMore": "Read more",
+    "published": "Published on",
+    "tags": "Tags"
+  },
+  "topics": {
+    "title": "Exercise Topics",
+    "subtitle": "Exercises to boost your dev experience.",
+    "description": "Exercises about {topic}"
+  },
+  "pricing": {
+    "title": "Subscription Plans",
+    "plans": {
+      "free": {
+        "name": "Free",
+        "description": "Perfect to get started",
+        "price": "0",
+        "currency": "€",
+        "period": "month",
+        "cta": "Start free"
+      },
+      "student": {
+        "name": "Student",
+        "description": "For committed students",
+        "price": "9.99",
+        "currency": "€",
+        "period": "month",
+        "cta": "Subscribe"
+      },
+      "pro": {
+        "name": "Student Pro",
+        "description": "For advanced professionals",
+        "price": "19.99",
+        "currency": "€",
+        "period": "month",
+        "cta": "Subscribe"
+      }
+    },
+    "comparison": {
+      "title": "Plan comparison",
+      "features": "Features"
+    }
+  },
+  "auth": {
+    "login": "Sign in",
+    "logout": "Sign out",
+    "signUp": "Sign up"
+  },
+  "metadata": {
+    "author": "Agora Next",
+    "exercises": "Academy - Exercises"
+  }
+}

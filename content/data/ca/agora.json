@@ -1,0 +1,75 @@
+{
+  "home": {
+    "hero": {
+      "title": "Acadèmia de Desenvolupament Web",
+      "subtitle": "Aprèn desenvolupament web amb exercicis pràctics i tutorials"
+    },
+    "cta": {
+      "exercises": "Veure exercicis",
+      "pricing": "Tarifes"
+    },
+    "featured": {
+      "title": "Exercicis destacats"
+    }
+  },
+  "nav": {
+    "exercises": "Exercicis",
+    "pricing": "Tarifes",
+    "topics": "Temes"
+  },
+  "exercises": {
+    "title": "Exercicis",
+    "description": "Exercicis pràctics per aprendre desenvolupament web",
+    "emptyState": "No hi ha exercicis disponibles",
+    "readMore": "Llegir més",
+    "published": "Publicat el",
+    "tags": "Etiquetes"
+  },
+  "topics": {
+    "title": "Temes d'Exercicis",
+    "subtitle": "Exercicis per potenciar la teva experiència de desenvolupador.",
+    "description": "Exercicis sobre {topic}"
+  },
+  "pricing": {
+    "title": "Plans de Subscripció",
+    "plans": {
+      "free": {
+        "name": "Gratuït",
+        "description": "Perfecte per començar",
+        "price": "0",
+        "currency": "€",
+        "period": "mes",
+        "cta": "Començar gratis"
+      },
+      "student": {
+        "name": "Estudiant",
+        "description": "Per a estudiants compromesos",
+        "price": "9.99",
+        "currency": "€",
+        "period": "mes",
+        "cta": "Subscriure's"
+      },
+      "pro": {
+        "name": "Estudiant Pro",
+        "description": "Per a professionals avançats",
+        "price": "19.99",
+        "currency": "€",
+        "period": "mes",
+        "cta": "Subscriure's"
+      }
+    },
+    "comparison": {
+      "title": "Comparació de plans",
+      "features": "Característiques"
+    }
+  },
+  "auth": {
+    "login": "Iniciar sessió",
+    "logout": "Tancar sessió",
+    "signUp": "Registrar-se"
+  },
+  "metadata": {
+    "author": "Agora Next",
+    "exercises": "Acadèmia - Exercicis"
+  }
+}

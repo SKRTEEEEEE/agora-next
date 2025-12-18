@@ -1,10 +1,10 @@
-import { getAllTags, getPostsByTagSlug, sortTagsByCount } from "@/lib/utils";
+import { getAllTags, getPostsByTagSlug, sortTagsByCount, Locale } from "@/lib/utils";
 import {ejercicios} from "#site/content"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tag } from "@/components/academia/tag";
 import slugify from "slugify"
-import { Metadata } from "next";
 import { EjercicioItem } from "@/components/academia/ejercicio-item";
+import { getTranslations } from "next-intl/server";
 
 // Helper function to match github-slugger behavior
 function slug(text: string): string {
@@ -13,27 +13,31 @@ function slug(text: string): string {
 
 interface TagPageProps {
     params: Promise<{
-        tema: string
+        locale: Locale;
+        tema: string;
     }>
 }
 
-export async function generateMetadata(props: TagPageProps): Promise<Metadata> {
+export async function generateMetadata(props: TagPageProps) {
     const params = await props.params;
-    const {tema}= params;
+    const {tema, locale}= params;
+    const t = await getTranslations({locale, namespace: 'topics'});
+    
     return {
         title: tema,
-        description: `Ejercicios con de ${tema}`
+        description: t('description', {topic: tema})
     }
 }
 
 export default async function TemaPage(props: TagPageProps) {
     const params = await props.params;
-    const {tema} = params;
-    const title = tema.split("-").join(" ")
+    const {tema, locale} = params;
+    const t = await getTranslations({locale, namespace: 'topics'});
+    const title = tema.split("-").join(" ");
 
-    const displayPosts = getPostsByTagSlug(ejercicios, tema)
-    const tags = getAllTags(ejercicios)
-    const sortedTags = sortTagsByCount(tags)
+    const displayPosts = getPostsByTagSlug(ejercicios, tema, locale);
+    const tags = getAllTags(ejercicios, locale);
+    const sortedTags = sortTagsByCount(tags);
 
     return (
         <div className="container max-w-4xl py-6 lg:py-10">
@@ -43,7 +47,7 @@ export default async function TemaPage(props: TagPageProps) {
                {title}
             </h1>
             <p className="text-xl text-muted-foreground">
-                Ejercicios para potenciar tu experiencia dev.
+                {t('subtitle')}
             </p>
         </div>
     </div>

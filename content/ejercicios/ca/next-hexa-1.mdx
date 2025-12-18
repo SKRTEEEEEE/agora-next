@@ -1,0 +1,37 @@
+---
+title: Next.js hexagonal exercici 1
+description: Exercici pràctic d'arquitectura hexagonal amb Next.js utilitzant app router
+date: 2024-08-30
+tags: ["nextjs", "hexagonal", "frontend"]
+published: true
+---
+
+# Next.js hexagonal: exercici 1
+
+Exercici senzill d'arquitectura hexagonal utilitzant Next.js +14 amb app router i tailwindcss. Enfocat al frontend.
+
+## Procés
+
+### 1. Estructura de l'App
+#### `npx create-next-app@latest`
+- Inicialitzar l'aplicació utilitzant la comanda de Next.js, utilitzant la carpeta "src".
+#### Estructura hexagonal
+- Definir les carpetes d'una arquitectura hexagonal, en una carpeta anomenada "core".
+#### Creació domain i app
+- Per a aquesta aplicació haurem de complir aquestes regles:
+  - Usuaris amb: id (únic, pots generar-lo amb la data + nom), nom, roleId (id que el vincula a una altra taula amb el seu rol, el qual podrà no existir, amb el qual significarà que és un usuari normal), createdAt (timestamp de creació) i updatedAt (timestamp d'edició).
+  - Rols amb: id (únic, pots generar-lo amb la data + nom), nom (nom de l'usuari), permissions (tipus de permís, definit en un enum, amb les opcions: "ADMIN", "STUDENT", "STUDENT_PRO"), createdAt (timestamp de creació) i updatedAt (timestamp d'edició).
+
+### 2. Usuaris
+#### `InMemoryUserRepository`, "Create" usuari i "Read" usuaris
+- Crear `InMemoryUserRepository`, si encara no s'ha fet.
+- A "actions", crearem funcions per "Create" usuaris, utilitzant SSR.
+- A la nostra pàgina, implementarem un component amb un formulari per crear l'usuari.
+- Farem el mateix amb el "Read", el qual haurà de retornar tots els usuaris.
+
+## Què aprendràs
+
+- Fonaments d'arquitectura hexagonal
+- Patrons de Next.js app router
+- Bones pràctiques de TypeScript
+- Principis de disseny dirigit pel domini

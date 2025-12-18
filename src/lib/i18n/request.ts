@@ -15,6 +15,7 @@ export default getRequestConfig(async ({requestLocale}) => {
     messages: {
       // ...(await import(`../../../content/data/${locale}/ceo.json`)).default,
       ...(await import(`../../../content/data/${locale}/common.json`)).default,
+      ...(await import(`../../../content/data/${locale}/agora.json`)).default,
     }
   };
 });

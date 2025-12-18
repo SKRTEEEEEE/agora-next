@@ -13,15 +13,22 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Academia utilities
+export type Locale = "es" | "en" | "de" | "ca";
+
 export interface Ejercicio {
   slug: string;
   slugAsParams: string;
+  locale: Locale;
   title: string;
   description?: string;
   date: string;
   published: boolean;
   tags?: string[];
   body: string;
+}
+
+export function getEjerciciosByLocale(posts: Array<Ejercicio>, locale: Locale) {
+  return posts.filter(post => post.locale === locale);
 }
 
 export function formatDate(input: string | number): string {
@@ -41,9 +48,10 @@ export function sortPosts(posts: Array<Ejercicio>) {
   })
 }
 
-export function getAllTags(posts: Array<Ejercicio>) {
+export function getAllTags(posts: Array<Ejercicio>, locale?: Locale) {
+  const filteredPosts = locale ? getEjerciciosByLocale(posts, locale) : posts;
   const tags: Record<string, number> = {}
-  posts.forEach(post => {
+  filteredPosts.forEach(post => {
     if (post.published) {
       post.tags?.forEach(tag => {
         tags[tag] = (tags[tag] ?? 0) + 1;
@@ -57,8 +65,9 @@ export function sortTagsByCount(tags: Record<string, number>) {
   return Object.keys(tags).sort((a, b) => tags[b] - tags[a])
 }
 
-export function getPostsByTagSlug(posts: Array<Ejercicio>, tag: string) {
-  return posts.filter(post => {
+export function getPostsByTagSlug(posts: Array<Ejercicio>, tag: string, locale?: Locale) {
+  const filteredPosts = locale ? getEjerciciosByLocale(posts, locale) : posts;
+  return filteredPosts.filter(post => {
     if (!post.tags) return false
     const slugifiedTags = post.tags.map(tag => slug(tag))
     return slugifiedTags.includes(tag)

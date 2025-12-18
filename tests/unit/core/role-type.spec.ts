@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { RoleType, apiRoleType, RoleHierarchy } from "@log-ui/core/domain/entities/role.type";
+import { apiRoleType, RoleHierarchy, RoleType } from "@skrteeeeee/profile-domain";
 
 test.describe("Core Domain - Role Type", () => {
   test.describe("RoleType enum", () => {

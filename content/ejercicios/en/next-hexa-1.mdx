@@ -1,0 +1,39 @@
+---
+title: Next.js hexagonal exercise 1
+description: Practical exercise on hexagonal architecture with Next.js using app router
+date: 2024-08-30
+tags: ["nextjs", "hexagonal", "frontend"]
+published: true
+---
+
+# Next.js hexagonal: exercise 1
+
+Simple hexagonal architecture exercise using Next.js +14 with app router and tailwindcss. Frontend-focused.
+
+## Process
+
+### 1. App Structure
+#### `npx create-next-app@latest`
+- Initialize the application using the Next.js command, using the "src" folder.
+#### Hexagonal structure
+- Define the folders of a hexagonal architecture, in a folder called "core".
+#### Domain and app creation
+- For this application we will have to comply with these rules:
+  - Users with: id (unique, you can generate it with date + name), name, roleId (id that links it to another table with its role, which may not exist, which would mean it is a normal user), createdAt (creation timestamp) and updatedAt (edit timestamp).
+  - Roles with: id (unique, you can generate it with date + name), name (user name), permissions (permission type, defined in an enum, with options: "ADMIN", "STUDENT", "STUDENT_PRO"), createdAt (creation timestamp) and updatedAt (edit timestamp).
+  - For this case you can use "string" types for dates, since we will not use persistence for our first infrastructure repository.
+  - For repositories, we will need to define functions for "CRUD", in the case of "Read", we will search by id and also all in the case of users. In the case of roles we will define a function to return all "roles" with a specific permissions (for example, all administrators)
+
+### 2. Users
+#### `InMemoryUserRepository`, "Create" user and "Read" users
+- Create `InMemoryUserRepository`, if not already done.
+- In "actions", we will create functions for "Create" users, using SSR.
+- On our page, we will implement a component with a form to create the user.
+- We will do the same with "Read", which should return all users.
+
+## What You'll Learn
+
+- Hexagonal architecture fundamentals
+- Next.js app router patterns
+- TypeScript best practices
+- Domain-driven design principles

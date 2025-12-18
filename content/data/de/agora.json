@@ -1,0 +1,75 @@
+{
+  "home": {
+    "hero": {
+      "title": "Webentwicklungsakademie",
+      "subtitle": "Lerne Webentwicklung mit praktischen Übungen und Tutorials"
+    },
+    "cta": {
+      "exercises": "Übungen ansehen",
+      "pricing": "Preise"
+    },
+    "featured": {
+      "title": "Empfohlene Übungen"
+    }
+  },
+  "nav": {
+    "exercises": "Übungen",
+    "pricing": "Preise",
+    "topics": "Themen"
+  },
+  "exercises": {
+    "title": "Übungen",
+    "description": "Praktische Übungen zum Erlernen der Webentwicklung",
+    "emptyState": "Keine Übungen verfügbar",
+    "readMore": "Mehr lesen",
+    "published": "Veröffentlicht am",
+    "tags": "Tags"
+  },
+  "topics": {
+    "title": "Übungsthemen",
+    "subtitle": "Übungen zur Steigerung deiner Entwicklererfahrung.",
+    "description": "Übungen über {topic}"
+  },
+  "pricing": {
+    "title": "Abonnementpläne",
+    "plans": {
+      "free": {
+        "name": "Kostenlos",
+        "description": "Perfekt für den Einstieg",
+        "price": "0",
+        "currency": "€",
+        "period": "Monat",
+        "cta": "Kostenlos starten"
+      },
+      "student": {
+        "name": "Student",
+        "description": "Für engagierte Studenten",
+        "price": "9.99",
+        "currency": "€",
+        "period": "Monat",
+        "cta": "Abonnieren"
+      },
+      "pro": {
+        "name": "Student Pro",
+        "description": "Für fortgeschrittene Profis",
+        "price": "19.99",
+        "currency": "€",
+        "period": "Monat",
+        "cta": "Abonnieren"
+      }
+    },
+    "comparison": {
+      "title": "Planvergleich",
+      "features": "Funktionen"
+    }
+  },
+  "auth": {
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "signUp": "Registrieren"
+  },
+  "metadata": {
+    "author": "Agora Next",
+    "exercises": "Akademie - Übungen"
+  }
+}

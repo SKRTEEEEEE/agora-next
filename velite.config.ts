@@ -3,14 +3,24 @@ import rehypePrettyCode from "rehype-pretty-code"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import {defineConfig, defineCollection, s} from "velite";
 
-const computedFields = <T extends {slug: string}>(data: T)=>({
-    ...data,
-    slugAsParams: data.slug.split("/").slice(1).join("/")
-})
+const computedFields = <T extends {slug: string}>(data: T)=>{
+    const parts = data.slug.split("/");
+    const locale = parts[1] as "es" | "en" | "de" | "ca";
+    // Remove locale from slug: ejercicios/es/hello-world -> ejercicios/hello-world
+    const slugWithoutLocale = [parts[0], ...parts.slice(2)].join("/");
+    const slugAsParams = parts.slice(2).join("/");
+    
+    return {
+        ...data,
+        slug: slugWithoutLocale,
+        slugAsParams,
+        locale
+    }
+}
 
 const ejercicios = defineCollection({
     name: "Ejercicio",
-    pattern: "ejercicios/**/*.mdx",
+    pattern: "ejercicios/{es,en,de,ca}/*.mdx",
     schema: s.object({
         slug: s.path(),
         title: s.string().max(99),

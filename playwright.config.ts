@@ -1,37 +1,51 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  testMatch: '**/*.spec.ts',
-  timeout: 30000,
-  retries: 2,
-  outputDir: "docs/test-results",
+  testMatch: '*.spec.ts',
+  timeout: 90000,
+  retries: process.env.CI ? 2 : 1,
+  outputDir: "docs/test-results/artifacts",
+  fullyParallel: true,
   
-  // Different test projects for different types of tests
+  // Global expect timeout
+  expect: {
+    timeout: 10000,
+  },
+  
+  // Automatic server management
+  webServer: {
+    command: process.env.CI ? 'npm run dev' : 'npm run start',
+    url: 'http://localhost:3002',
+    reuseExistingServer: true,
+    timeout: 120000,
+    stdout: 'pipe',
+    stderr: 'pipe',
+  },
+  
+  // Configure projects for different test types
   projects: [
     {
       name: 'unit',
-      testMatch: '**/unit/**/*.spec.ts',
+      testMatch: /tests\/unit\/.*\.spec\.ts/,
       use: {
-        headless: true,
+        ...devices['Desktop Chrome'],
       },
     },
     {
       name: 'integration',
-      testMatch: '**/integration/**/*.spec.ts',
+      testMatch: /tests\/integration\/.*\.spec\.ts/,
       use: {
-        headless: true,
-        viewport: { width: 1280, height: 720 },
-        ignoreHTTPSErrors: true,
+        ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:3002',
       },
     },
     {
       name: 'e2e',
-      testMatch: '**/e2e/**/*.spec.ts',
+      testMatch: /tests\/e2e\/.*\.spec\.ts/,
       use: {
-        headless: true,
-        viewport: { width: 1280, height: 720 },
-        ignoreHTTPSErrors: true,
+        ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:3002',
       },
     },
   ],
@@ -40,10 +54,14 @@ export default defineConfig({
     headless: true,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
+    screenshot: 'only-on-failure',
+    trace: 'retain-on-failure',
   },
   
+  // Reporter configuration
   reporter: [
     ['list'],
-    ['html', { outputFolder: 'docs/test-reports' }]
+    ['html', { outputFolder: 'docs/test-results/html-report', open: 'never' }],
+    ['json', { outputFile: 'docs/test-results/test-results.json' }],
   ],
 });

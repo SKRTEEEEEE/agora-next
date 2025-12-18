@@ -1,0 +1,53 @@
+---
+title: Schauen wir uns an, was wir mit rehype pretty code machen können
+description: Syntax-Hervorhebung, Zeilennummern, Zeilen-Hervorhebungen, Wort-Hervorhebungen
+date: 2024-03-04
+tags: ["code", "rehype pretty", "mdx"]
+published: true
+---
+
+[`rehype-pretty-code`](https://github.com/atomiks/rehype-pretty-code) ist ein Rehype-Plugin, das von
+[`shiki`](https://github.com/shikijs/shiki) Syntax-Highlighter angetrieben wird und schöne Code-Blöcke für Markdown oder MDX bereitstellt.
+
+## Editor-Grad-Hervorhebung
+
+Genießen Sie die Genauigkeit und Granularität der Syntax-Hervorhebungs-Engine von VS Code und
+die Popularität seines Themes-Ökosystems — verwenden Sie jedes VS Code-Theme, das Sie möchten!
+
+## Zeilennummern und Zeilen-Hervorhebung
+
+Lenken Sie die Aufmerksamkeit auf eine bestimmte Codezeile.
+
+```js {4} showLineNumbers
+import { useFloating } from "@floating-ui/react";
+
+function MyComponent() {
+  const { refs, floatingStyles } = useFloating();
+
+  return (
+    <>
+      <div ref={refs.setReference} />
+      <div ref={refs.setFloating} style={floatingStyles} />
+    </>
+  );
+}
+```
+
+## Wort-Hervorhebung
+
+Lenken Sie die Aufmerksamkeit auf ein bestimmtes Wort oder eine Zeichenfolge.
+
+```js /floatingStyles/
+import { useFloating } from "@floating-ui/react";
+
+function MyComponent() {
+  const { refs, floatingStyles } = useFloating();
+
+  return (
+    <>
+      <div ref={refs.setReference} />
+      <div ref={refs.setFloating} style={floatingStyles} />
+    </>
+  );
+}
+```

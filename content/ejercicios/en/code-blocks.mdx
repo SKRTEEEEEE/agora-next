@@ -1,0 +1,53 @@
+---
+title: Let's see what we can do with rehype pretty code
+description: Syntax highlighting, line numbers, line highlights, word highlights
+date: 2024-03-04
+tags: ["code", "rehype pretty", "mdx"]
+published: true
+---
+
+[`rehype-pretty-code`](https://github.com/atomiks/rehype-pretty-code) is a Rehype plugin powered by the
+[`shiki`](https://github.com/shikijs/shiki) syntax highlighter that provides beautiful code blocks for Markdown or MDX.
+
+## Editor-Grade Highlighting
+
+Enjoy the accuracy and granularity of VS Code's syntax highlighting engine and
+the popularity of its themes ecosystem — use any VS Code theme you want!
+
+## Line Numbers and Line Highlighting
+
+Draw attention to a particular line of code.
+
+```js {4} showLineNumbers
+import { useFloating } from "@floating-ui/react";
+
+function MyComponent() {
+  const { refs, floatingStyles } = useFloating();
+
+  return (
+    <>
+      <div ref={refs.setReference} />
+      <div ref={refs.setFloating} style={floatingStyles} />
+    </>
+  );
+}
+```
+
+## Word Highlighting
+
+Draw attention to a particular word or series of characters.
+
+```js /floatingStyles/
+import { useFloating } from "@floating-ui/react";
+
+function MyComponent() {
+  const { refs, floatingStyles } = useFloating();
+
+  return (
+    <>
+      <div ref={refs.setReference} />
+      <div ref={refs.setFloating} style={floatingStyles} />
+    </>
+  );
+}
+```
