@@ -14,8 +14,8 @@ export default defineConfig({
   },
   
   // Automatic server management
-  webServer: {
-    command: process.env.CI ? 'npm run dev' : 'npm run start',
+  webServer: process.env.CI ? undefined : {
+    command: 'npm run dev',
     url: 'http://localhost:3002',
     reuseExistingServer: true,
     timeout: 120000,
@@ -37,7 +37,7 @@ export default defineConfig({
       testMatch: /tests\/integration\/.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:3002',
+        baseURL: process.env.CI ? 'http://localhost:3002' : 'http://localhost:3002',
       },
     },
     {
@@ -45,7 +45,7 @@ export default defineConfig({
       testMatch: /tests\/e2e\/.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:3002',
+        baseURL: process.env.CI ? 'http://localhost:3002' : 'http://localhost:3002',
       },
     },
   ],
