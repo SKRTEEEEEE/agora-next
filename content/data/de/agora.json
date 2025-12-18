@@ -59,11 +59,6 @@
       "features": "Funktionen"
     }
   },
-  "auth": {
-    "login": "Anmelden",
-    "logout": "Abmelden",
-    "signUp": "Registrieren"
-  },
   "metadata": {
     "author": "Agora Next",
     "exercises": "Akademie - Übungen"
