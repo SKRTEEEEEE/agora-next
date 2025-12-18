@@ -30,27 +30,27 @@ test.describe('SiteHeader Apps Dropdown Navigation', () => {
     expect(fileContent).toContain('NavigationMenuContent');
   });
 
-  test('should have navigation to desarrollador.tech as main link', () => {
-    // El elemento principal debe llevar a desarrollador.tech (/)
+  test('should use APPS_CONFIG for dynamic app URLs', () => {
+    // AppsMenu now uses apps-config.ts for dynamic app management
     const fileContent = fs.readFileSync(appsMenuPath, 'utf-8');
     
-    expect(fileContent).toContain('desarrollador.tech');
+    expect(fileContent).toContain('APPS_CONFIG');
+    expect(fileContent).toContain('getCurrentApp');
+    expect(fileContent).toContain('getAppUrl');
   });
 
-  test('should have external links to profile-skrt.vercel.app', () => {
-    // Debe tener enlaces externos a:
-    // - https://profile-skrt.vercel.app/es/academia
-    // - https://profile-skrt.vercel.app/es/admin
+  test('should import apps-config utilities', () => {
+    // Should import from apps-config module
     const fileContent = fs.readFileSync(appsMenuPath, 'utf-8');
     
-    expect(fileContent).toContain('profile-skrt.vercel.app/es/academia');
-    expect(fileContent).toContain('profile-skrt.vercel.app/es/admin');
+    expect(fileContent).toContain('@log-ui/lib/config/apps-config');
   });
 
-  test('should have link to dev.desarrollador.tech', () => {
-    // Debe tener un enlace a dev.desarrollador.tech
+  test('should filter and display other apps', () => {
+    // Should filter current app and display others
     const fileContent = fs.readFileSync(appsMenuPath, 'utf-8');
     
-    expect(fileContent).toContain('dev.desarrollador.tech');
+    expect(fileContent).toContain('otherApps');
+    expect(fileContent).toContain('filter');
   });
 });

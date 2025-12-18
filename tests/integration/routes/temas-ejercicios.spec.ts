@@ -92,8 +92,9 @@ test.describe('Integration Tests - Temas Ejercicios Routes', () => {
       
       // Should export generateMetadata
       expect(fileContent).toContain('export async function generateMetadata');
-      expect(fileContent).toContain('Promise<Metadata>');
+      // Next.js 15+ uses implicit return type, no need for Promise<Metadata> annotation
       expect(fileContent).toContain('await props.params');
+      expect(fileContent).toContain('return {');
     });
 
     test.skip('should have generateStaticParams function', () => {
