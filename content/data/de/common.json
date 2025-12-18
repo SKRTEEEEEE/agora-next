@@ -10,6 +10,7 @@
       "academia": "Gehe zur Akademie",
       "ceo": "Gehe zu Über mich"
     },
+    "lang": "Sprache",
     "manage-root": {
       "title": "Seite im Aufbau",
       "desc": "Die ersten Besuche der Hauptseite '/' werden auf 'Über mich' weitergeleitet, da diese (Hauptseite) derzeit in Entwicklung ist.\n\n Ab jetzt wirst du nicht mehr weitergeleitet, aber du kannst weiterhin auf 'Über mich' zugreifen."
