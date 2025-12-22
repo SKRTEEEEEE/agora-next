@@ -5,7 +5,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/routing";
 import { cn, getEjerciciosByLocale, sortPosts, Locale } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
-import { userInCookiesUC } from "@log-ui/core/presentation/controllers/user";
+import { getCurrentUserUC } from "@log-ui/core/application/usecases/entities/user";
 
 export async function generateMetadata({params}: {params: Promise<{locale: Locale}>}) {
   const {locale} = await params;
@@ -23,7 +23,7 @@ export default async function Home({params}: {params: Promise<{locale: Locale}>}
   
   const localePosts = getEjerciciosByLocale(ejercicios, locale);
   const latestPosts = sortPosts(localePosts).slice(0, 5);
-  const user = await userInCookiesUC();
+  const user = await getCurrentUserUC();
 
   return (
     <>

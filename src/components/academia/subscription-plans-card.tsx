@@ -12,10 +12,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { plansBasicInfo } from "@/lib/data"
-import { userInCookiesUC } from "@log-ui/core/presentation/controllers/user"
 import { RoleType } from "@skrteeeeee/profile-domain"
 import { generatePaymentLink } from "@/lib/utils"
 import { CustomConnectButton } from "@log-ui/components/custom-connect-button"
+import { getCurrentUserUC } from "@log-ui/core/application/usecases/entities/user"
 
 function FeatureList({ features }: { features: string[] }) {
   return (
@@ -31,7 +31,7 @@ function FeatureList({ features }: { features: string[] }) {
 }
 
 async function PlanButton({ planPrice, planName }: { planPrice: string; planName: string }) {
-  const user = await userInCookiesUC()
+  const user = await getCurrentUserUC()
   
   // Plan Gratuito
   if (planPrice === "0€") {

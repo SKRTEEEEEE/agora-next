@@ -1,4 +1,4 @@
-# Agora Next - Marketplace frontend
+# Agora Next - Blog Frontend
 
 <div align="center">
 
@@ -16,7 +16,6 @@
 
 </div>
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
@@ -39,8 +38,8 @@ Open [http://localhost:3002](http://localhost:3002) with your browser to see the
 ## Testing
 
 This project has a comprehensive testing setup with different types of tests. For detailed documentation, see:
-- [Test Documentation](./docs/test.md)
-- [Coverage Documentation](./docs/coverage.md)
+- [Test Documentation](./docs/dev/test.md)
+- [Coverage Documentation](./docs/dev/coverage.md)
 
 ### Quick Start
 
@@ -74,23 +73,7 @@ The project uses Husky to run checks before commits:
 Commits must follow [Conventional Commits](https://www.conventionalcommits.org/) format.
 
 
-## 📊 Test Coverage
 
-### Unit Tests
- ![Lines Coverage](https://img.shields.io/badge/Lines-100%25-brightgreen) ![Statements Coverage](https://img.shields.io/badge/Statements-100%25-brightgreen) ![Functions Coverage](https://img.shields.io/badge/Functions-100%25-brightgreen) ![Branches Coverage](https://img.shields.io/badge/Branches-100%25-brightgreen) 
-
-
-## Docker
-
-Build and run the application with Docker:
-
-```bash
-# Build the image
-docker build -t agora-next .
-
-# Run the container
-docker run -p 3002:3002 agora-next
-```
 
 ## Scripts
 
@@ -119,8 +102,3 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

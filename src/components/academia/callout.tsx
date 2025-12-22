@@ -1,7 +1,7 @@
 // "ejemplo de componente personalizado"
 
 import { RoleType } from "@skrteeeeee/profile-domain";
-import { userInCookiesUC } from "@log-ui/core/presentation/controllers/user";
+import { getCurrentUserUC } from "@log-ui/core/application/usecases/entities/user";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
@@ -43,7 +43,7 @@ export async function Callout({
     role= "student",
     ...props
 }: CalloutProps) {
-    const user = await userInCookiesUC()
+    const user = await getCurrentUserUC()
     
     // Verificar rol student (incluye ADMIN y ambos tipos de STUDENT)
     if(role==="student"){ 
