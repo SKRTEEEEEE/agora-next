@@ -14,7 +14,7 @@ jobs:
       pull-requests: write
     steps:
     # ✅ CRÍTICO: Checkout con submódulos RECURSIVOS
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         submodules: recursive  # ⚠️ Cambiado de 'true' a 'recursive'
         fetch-depth: 0
