@@ -64,13 +64,32 @@ export default async function PostPage(props: PostPageProps) {
         notFound()
     }
 
-    return <article className="container py-6 prose dark:prose-invert max-w-3xl mx-auto">
-        <h1 className="mb-2">{post.title}</h1>
-        <div className="flex gap-2 mb-2">
-            {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
-        </div>
-        {post.description ? <p className="text-xl mt-0 text-muted-foreground">{post.description}</p> : null}
-        <hr className="my-4" />
-        <MDXContent code={post.body} />
-    </article>
+    return (
+        <article className="container relative max-w-3xl py-6 lg:py-10 mx-auto">
+            <div>
+                {post.date && (
+                    <time
+                        dateTime={post.date}
+                        className="block text-sm text-muted-foreground mb-2"
+                    >
+                        {new Date(post.date).toLocaleDateString()}
+                    </time>
+                )}
+                <h1 className="mt-2 inline-block font-heading text-4xl font-bold leading-tight lg:text-5xl mb-4">
+                    {post.title}
+                </h1>
+                <div className="flex gap-2 mb-4 mt-2">
+                    {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
+                </div>
+                {post.description ? (
+                    <p className="text-xl text-muted-foreground mt-4 mb-8">
+                        {post.description}
+                    </p>
+                ) : null}
+            </div>
+            
+            <hr className="my-8 border-muted" />
+            <MDXContent code={post.body} />
+        </article>
+    )
 }
