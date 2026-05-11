@@ -19,7 +19,14 @@
     "emptyState": "No hi ha exercicis disponibles",
     "readMore": "Llegir més",
     "published": "Publicat el",
-    "tags": "Etiquetes"
+    "tags": "Etiquetes",
+    "notFound": {
+      "title": "Article no trobat",
+      "description": "L'article que cerques no està disponible en l'idioma seleccionat",
+      "suggested": "Articles suggerits en {locale}:",
+      "noArticles": "No hi ha articles disponibles en aquest idioma",
+      "goBack": "Tornar a tots els articles"
+    }
   },
   "topics": {
     "title": "Temes d'Exercicis",

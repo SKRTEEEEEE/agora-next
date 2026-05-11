@@ -19,7 +19,14 @@
     "emptyState": "Keine Übungen verfügbar",
     "readMore": "Mehr lesen",
     "published": "Veröffentlicht am",
-    "tags": "Tags"
+    "tags": "Tags",
+    "notFound": {
+      "title": "Artikel nicht gefunden",
+      "description": "Der Artikel, nach dem Sie suchen, ist in der ausgewählten Sprache nicht verfügbar",
+      "suggested": "Vorgeschlagene Artikel in {locale}:",
+      "noArticles": "Keine Artikel in dieser Sprache verfügbar",
+      "goBack": "Zurück zu allen Artikeln"
+    }
   },
   "topics": {
     "title": "Übungsthemen",

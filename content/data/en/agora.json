@@ -19,7 +19,14 @@
     "emptyState": "No exercises available",
     "readMore": "Read more",
     "published": "Published on",
-    "tags": "Tags"
+    "tags": "Tags",
+    "notFound": {
+      "title": "Article not found",
+      "description": "The article you are looking for is not available in the selected language",
+      "suggested": "Suggested articles in {locale}:",
+      "noArticles": "No articles available in this language",
+      "goBack": "Go back to all articles"
+    }
   },
   "topics": {
     "title": "Exercise Topics",

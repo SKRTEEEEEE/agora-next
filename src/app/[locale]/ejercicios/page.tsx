@@ -44,43 +44,53 @@ export default async function EjerciciosPage(props: BlogPageProps) {
     const tags = getAllTags(ejercicios, locale);
     const sortedTags = sortTagsByCount(tags);
 
-    return <div className="container max-w-4xl py-6 lg:py-10">
-        <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-4">
-            <div className="flex-1 space-y-4">
-                <h1 className="inline-block font-black text-4xl lg:text-5xl">
-                    {t('title')}
-                </h1>
-                <p className="text-xl text-muted-foreground">
-                    {t('description')}
-                </p>
-            </div>
+    return <div className="container max-w-6xl py-8 lg:py-12">
+        <div className="mb-12 text-center">
+            <h1 className="inline-block font-black text-4xl md:text-5xl lg:text-6xl text-foreground mb-4">
+                {t('title')}
+            </h1>
+            <p className="text-xl text-foreground max-w-2xl mx-auto">
+                {t('description')}
+            </p>
         </div>
-        <div className="grid grid-cols-12 gap-3 mt-8">
-            <div className="col-span-12 col-start-1 sm:col-span-8">
-                <hr className="mt-8" />
-                {displayPosts?.length > 0 ? (
-                    <ul className="flex flex-col">
-                        {displayPosts.map(post => {
-                            const { slug, date, title, description, tags } = post
-                            return <li key={slug}>
-                                <EjercicioItem slug={slug} date={date} title={title} description={description} tags={tags} />
-                            </li>
-                        })}
-                    </ul>
-                ) : (
-                    <p>{t('emptyState')}</p>
-                )
-                }
-                <QueryPagination totalPages={totalPages} className="justify-end mt-4" />
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-8">
+                <div className="space-y-6">
+                    {displayPosts?.length > 0 ? (
+                        <ul className="space-y-6">
+                            {displayPosts.map(post => {
+                                const { slug, date, title, description, tags } = post
+                                return <li key={slug}>
+                                    <EjercicioItem slug={slug} date={date} title={title} description={description} tags={tags} />
+                                </li>
+                            })}
+                        </ul>
+                    ) : (
+                        <div className="text-center py-12">
+                            <p className="text-lg text-foreground">{t('emptyState')}</p>
+                        </div>
+                    )}
+                </div>
+                
+                <div className="mt-8 flex justify-center">
+                    <QueryPagination totalPages={totalPages} className="justify-center" />
+                </div>
             </div>
-            <Card className="col-span-12 row-start-3 h-fit sm:col-span-4 sm:col-start-9 sm:row-start-1">
-                <CardHeader>
-                    <CardTitle>{t('tags')}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-wrap gap-2">
-                    {sortedTags?.map(tag => <Tag tag={tag} key={tag} count={tags[tag]} />)}
-                </CardContent>
-            </Card>
+            
+            <div className="lg:col-span-4">
+                <Card className="sticky top-8 border border-border/30 rounded-2xl shadow-lg shadow-primary/5">
+                    <CardHeader className="pb-4">
+                        <CardTitle className="text-2xl flex items-center gap-2 text-foreground">
+                            <span className="bg-primary w-3 h-3 rounded-full"></span>
+                            {t('tags')}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex flex-wrap gap-3">
+                        {sortedTags?.map(tag => <Tag tag={tag} key={tag} count={tags[tag]} />)}
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     </div>
 }

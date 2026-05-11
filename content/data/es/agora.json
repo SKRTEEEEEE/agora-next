@@ -19,7 +19,14 @@
     "emptyState": "No hay ejercicios disponibles",
     "readMore": "Leer más",
     "published": "Publicado el",
-    "tags": "Etiquetas"
+    "tags": "Etiquetas",
+    "notFound": {
+      "title": "Artículo no encontrado",
+      "description": "El artículo que buscas no está disponible en el idioma seleccionado",
+      "suggested": "Artículos sugeridos en {locale}:",
+      "noArticles": "No hay artículos disponibles en este idioma",
+      "goBack": "Volver a todos los artículos"
+    }
   },
   "topics": {
     "title": "Temas de Ejercicios",
